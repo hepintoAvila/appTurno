@@ -1,0 +1,8 @@
+// Button shadow
+
+@mixin button-shadow($color) {
+    box-shadow: $btn-box-shadow rgba($color, 0.5);
+    color: #fff;
+    background-color: #73c758;
+    border-color: #01480c;
+}
