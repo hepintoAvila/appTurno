@@ -10,8 +10,8 @@ const Footer = (): React$Element<any> => {
                 <div className="container-fluid ">
                       <Row md={12} className="justify-content-center bg-footer-dashboard fw-bold">
                             <div className="d-none d-md-block content-center">
-                                                 {currentYear} © SICES v.1 - @2023-Desarrollado Por: Hosmmer Eduardo Pinto Rojas.
-                                Celular: 3042172357
+                                                 {currentYear} © STORC v.1- @2024-Desarrollado Por: Holmes Elias Pinto Avila.
+                                Celular: 3162789497
                             </div>
 
                         </Row>

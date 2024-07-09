@@ -35,20 +35,16 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
               </Row>
         </header>
         <div className="flexRowContent--header___grid__nivel_2">
-
                 <div className="flexRowContent--header___grid__nivel_2_col1">
                 <img src={logo_comite} alt="" height="63" className="headerLogo"/>
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col2">
-                <p className="headerTitulo"><span>{t('SICES v.1 - Sistema de Información del Comité de Evaluación y Seguimiento')} </span></p>
+                <p className="headerTitulo"><span>{t('STURC v.1 - Sistema para Solicitar Turno en la Oficina de Registro y Control')} </span></p>
 
                 </div>
                 <div  className="flexRowContent--header___grid__nivel_2_col3">
                     <img src={headerSena} alt="" height="63" className="headerLogo"/>
                 </div>
-
-
-
         </div>
             <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
 
@@ -75,9 +71,9 @@ const AccountLayout = ({ bottomLinks, children }: AccountLayoutProps): React$Ele
             </div>
             <footer className="footer footer-alt">
             <Row className="justify-content-center bg-footer  fw-bold">
-              {t('SICES v.1')}<br/>
-              {t('Centro de Servicios Empresariales y Turísticos')}<br/>
-              {t('Santander-Bucaramanga')}<br/>
+              {t('STURC v.1')}<br/>
+              {t('Universidad Popular del Cesar')}<br/>
+              {t('Valledupar-Cesar')}<br/>
               {t('2024')}
               </Row>
             </footer>

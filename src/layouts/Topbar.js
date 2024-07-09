@@ -1,12 +1,10 @@
 // @flow
-import React, { useState,useEffect, useContext } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import classNames from 'classnames';
 import { getItemStorage } from '../pages/dashboard/components/itemStorage';
 // actions
 import { showRightSidebar } from '../redux/actions';
-import AppsDropdown from '../components/AppsDropdown/';
 // components
 import ProfileDropdown from '../components/ProfileDropdown';
 import profilePic from '../assets/images/users/avatar-1.jpg';
@@ -16,10 +14,8 @@ import logo from '../assets/images/logo-light.png';
 
 //constants
 import * as layoutConstants from '../constants/layout';
-import Title from '../pages/dashboard/components/Title';
-import BtnIniciales from '../pages/dashboard/configuracion/BtnIniciales';
-import { DashboardContext } from './context/DashboardContext';
-import ModulosPrincipales from '../pages/dashboard/configuracion/ModulosPrincipales';
+import ModulosPrincipales from '../components/ModulosPrincipales';
+
 
 
 // get the profilemenu
@@ -88,8 +84,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
       setAutor({name:userlocal[0]?.username,role:userlocal[0]?.role});
 
     }, []);
-    const { itemUrl,AdvertenciaLocalStorage } = useContext(DashboardContext);
-    AdvertenciaLocalStorage();
+    console.log('autor',autor?.name)
     return (
         <React.Fragment>
 
@@ -109,13 +104,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     )}
 
                      <ul className="list-unstyled topbar-menu float-end mb-0">
-                    <li className="notification-list">
-                            <span
-                                className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none position-title-top"
-                                >
-                                 <Title/>
-                            </span>
-                        </li>
+
                         <li className="notification-list">
                             <button
                                 className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
@@ -123,10 +112,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                 <i className="dripicons-gear noti-icon"></i>
                             </button>
                         </li>
-                        <li className="dropdown notification-list d-none d-sm-inline-block">
-                        <AppsDropdown />
-                        </li>
-                        <li className="dropdown notification-list">
+                           <li className="dropdown notification-list">
                             <ProfileDropdown
                                 profilePic={profilePic}
                                 menuItems={ProfileMenus}
@@ -142,36 +128,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         </button>
                     )}
 
-                    {/* toggle for horizontal layout */}
-                    {layoutType === layoutConstants.LAYOUT_HORIZONTAL && (
-                        <Link
-                            to="#"
-                            className={classNames('navbar-toggle', { open: isopen })}
-                            onClick={handleLeftMenuCallBack}>
-                            <div className="lines">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </Link>
-                    )}
-
-                    {/* toggle for detached layout */}
-                    {layoutType === layoutConstants.LAYOUT_DETACHED && (
-                        <Link to="#" className="button-menu-mobile disable-btn" onClick={handleLeftMenuCallBack}>
-                            <div className="lines">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </Link>
-                    )}
-
                 </div>
             </div>
             <div className={`navbar-custom topbar-Inicio `}>
-           {!itemUrl&&<BtnIniciales itemUrl={itemUrl} />}
-           {/*<ModulosPrincipales />*/}
+
+           <ModulosPrincipales tipo={autor?.name}/>
             </div>
         </React.Fragment>
     );

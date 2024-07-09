@@ -52,29 +52,7 @@ const LeftSidebar = ({ isCondensed, isLight, hideLogo, hideUserProfile}: LeftSid
 
   const menuNodeRef: any = useRef(null);
 
-    /**
-     * Handle the click anywhere in doc
-     */
-    const handleOtherClick = (e: any) => {
 
-
-        if (menuNodeRef && menuNodeRef.current && menuNodeRef.current.contains(e.target)) return;
-        // else hide the menubar
-
-        if (document.body) {
-            document.body.classList.remove('sidebar-enable');
-
-        }
-
-    };
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleOtherClick, false);
-
-        return () => {
-            document.removeEventListener('mousedown', handleOtherClick, false);
-        };
-    }, []);
 
 
     return (

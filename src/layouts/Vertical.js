@@ -1,14 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 // @flow
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Container } from 'react-bootstrap';
-
-// actions
-import { changeSidebarType, changeSidebarTheme } from '../redux/actions';
-import * as layoutConstants from '../constants/layout';
-
+import React, { Suspense, useEffect, useState } from 'react';
 // components
 import ThemeCustomizer from '../components/ThemeCustomizer';
 import { DashboardProvider } from './context/DashboardContext';
@@ -18,14 +11,11 @@ import { ValidadorProvider } from './context/ValidadorContext';
 import { SearchProvider } from './context/SearchContext';
 import { NotificacionesProvider } from './context/NotificacionesProvider';
 import { SecurityProvider } from './context/SecurityProvider';
-import {  DatosSolicitudProvider } from './context/DatosComiteContext';
-import ModulosPrincipales from '../pages/dashboard/configuracion/ModulosPrincipales';
-//import {  ReportesProvider } from './context/ReportesProvider';
+import { changeSidebarType } from '../redux/actions';
+import { useDispatch } from 'react-redux';
+import * as layoutConstants from '../constants/layout';
 const Topbar = React.lazy(() => import('./Topbar'));
-const LeftSidebar = React.lazy(() => import('./LeftSidebar'));
-const Footer = React.lazy(() => import('./Footer'));
 const RightSidebar = React.lazy(() => import('./RightSidebar'));
-const ProjectDashboard = React.lazy(() => import('../pages/dashboard/configuracion/ModulosPrincipales'));
 const loading = () => <div className=""></div>;
 
 export function capitalize(str) {
@@ -40,13 +30,6 @@ type VerticalLayoutState = {
 
 const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
   const dispatch = useDispatch();
-  const { leftSideBarTheme, leftSideBarType } = useSelector((state) => ({
-    layoutWidth: state.Layout.layoutWidth,
-    leftSideBarTheme: state.Layout.leftSideBarTheme,
-    leftSideBarType: state.Layout.leftSideBarType,
-    showRightSidebar: state.Layout.showRightSidebar,
-  }));
-
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
   /**
@@ -66,34 +49,11 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
     }
   };
 
-  const updateDimensions = useCallback(() => {
-    // activate the condensed sidebar if smaller devices like ipad or tablet
-    if (window.innerWidth >= 768 && window.innerWidth <= 1028) {
-      dispatch(changeSidebarType(layoutConstants.LEFT_SIDEBAR_TYPE_CONDENSED));
-    } else if (window.innerWidth > 1028) {
-      dispatch(changeSidebarType(layoutConstants.LEFT_SIDEBAR_TYPE_FIXED));
-    }
-  }, [dispatch]);
+
 
   useEffect(() => {
-    dispatch(changeSidebarTheme(layoutConstants.LEFT_SIDEBAR_THEME_DARK));
-
-    // activate the condensed sidebar if smaller devices like ipad or tablet
-    if (window.innerWidth >= 768 && window.innerWidth <= 1028) {
-      dispatch(changeSidebarType(layoutConstants.LEFT_SIDEBAR_TYPE_CONDENSED));
-    }
-
-    window.addEventListener('resize', updateDimensions);
-
-    return () => {
-      window.removeEventListener('resize', updateDimensions);
-    };
-  }, [dispatch, updateDimensions]);
-
-  const isCondensed = leftSideBarType === layoutConstants.LEFT_SIDEBAR_TYPE_CONDENSED;
-  const isLight = leftSideBarTheme === layoutConstants.LEFT_SIDEBAR_THEME_LIGHT;
-
-
+    //dispatch(changeSidebarType(layoutConstants.LEFT_SIDEBAR_TYPE_SCROLLABLE));
+}, [dispatch]);
   return (
     <>
       <SecurityProvider>
@@ -102,11 +62,7 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
             <PermisosProvider>
               <SearchProvider>
                 <NotificacionesProvider>
-                <DatosSolicitudProvider>
                   <div className="wrapper">
-                    <Suspense fallback={loading()}>
-                      <LeftSidebar isCondensed={isCondensed} isLight={isLight} hideUserProfile={true} />
-                    </Suspense>
                     <div className="content-page">
                       <div className="content">
                         <Suspense fallback={loading()}>
@@ -114,28 +70,16 @@ const VerticalLayout = (state: VerticalLayoutState): React$Element<any> => {
                           <Topbar openLeftMenuCallBack={openMenu} hideLogo={true} />
                           </ValidadorProvider>
                         </Suspense>
-                        <Suspense fallback={loading()}>
-                          <Container fluid>
-                          <ModulosPrincipales />
-                          </Container>
-                        </Suspense>
                       </div>
-                      <Suspense fallback={loading()}>
-                        <Footer />
-                      </Suspense>
                     </div>
                   </div>
-
                   <Suspense fallback={loading()}>
                     <RightSidebar>
                       <ThemeCustomizer />
                     </RightSidebar>
                   </Suspense>
-                  </DatosSolicitudProvider>
                 </NotificacionesProvider>
-
-
-              </SearchProvider>
+             </SearchProvider>
             </PermisosProvider>
           </MenuProvider>
         </DashboardProvider>

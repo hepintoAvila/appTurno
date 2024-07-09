@@ -2,18 +2,23 @@
 import { LayoutActionTypes } from './constants';
 
 import * as layoutConstants from '../../constants/layout';
-
+/*
 const INIT_STATE = {
     layoutType: layoutConstants.LAYOUT_VERTICAL,
     layoutWidth: layoutConstants.LAYOUT_WIDTH_FLUID,
     leftSideBarTheme: layoutConstants.LEFT_SIDEBAR_THEME_DARK,
     leftSideBarType: layoutConstants.LEFT_SIDEBAR_TYPE_FIXED,
     showRightSidebar: false,
+};*/
+const INIT_STATE = {
+  layoutType: layoutConstants.LAYOUT_VERTICAL,
+  layoutWidth: layoutConstants.LAYOUT_WIDTH_FLUID,
+  leftSideBarTheme: layoutConstants.LEFT_SIDEBAR_THEME_DARK,
+  leftSideBarType: layoutConstants.LEFT_SIDEBAR_TYPE_SCROLLABLE,
+  showRightSidebar: false
 };
-
 type LayoutAction = { type: string, payload?: string | null };
 
-type State = { showRightSidebar?: boolean, +value?: boolean };
 
 const Layout = (state: State = INIT_STATE, action: LayoutAction): any => {
     switch (action.type) {

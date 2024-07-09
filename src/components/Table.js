@@ -1,7 +1,7 @@
 // @flow
 import React, { useRef, useEffect, forwardRef } from 'react';
 import {Button } from 'react-bootstrap';
-import PdfComponent from '../pages/dashboard/components/ButtonExportar/PdfComponent';
+//import PdfComponent from '../pages/dashboard/components/ButtonExportar/PdfComponent';
 import {
     useTable,
     useSortBy,
@@ -181,7 +181,7 @@ const Table = (props: TableProps): React$Element<React$FragmentType> => {
                 <ButtonExportar numtable={table}/>
                 </div>
                 <div className="col-2 p-2">
-                <PdfComponent nombre={table}/>
+                {/*<PdfComponent nombre={table}/>*/}
                 </div>
                 <div className="col-2 p-2">
                 <Button className="btn btn-dataTable mb-0 me-5 p-2" onClick={toggleSignUp}>

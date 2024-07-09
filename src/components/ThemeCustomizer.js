@@ -50,7 +50,7 @@ const ThemeCustomizer = (state: ThemeCustomizerState): React$Element<any> => {
      * On layout change
      */
     const changeLayoutType = (e) => {
-        var layout = e ? e.currentTarget.value : 'default';
+        var layout = e ? e.currentTarget.value : 'detached';
 
         switch (layout) {
             case 'topnav':

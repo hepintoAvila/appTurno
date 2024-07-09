@@ -1,7 +1,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
-import BtnActions from '../../Project/ModuloNotificaciones/Components/BtnActions';
- 
+//import BtnActions from '../../Project/ModuloNotificaciones/Components/BtnActions';
+
 const PdfComponent = (props) => {
   const generatePdf = () => {
     //const doc = new jsPDF();
@@ -20,7 +20,7 @@ const PdfComponent = (props) => {
 
   return (
     <div>
-          <BtnActions
+          {/*<BtnActions
               permisos={'S'}
               key={`EDITAR`}
               toggleActions={generatePdf}
@@ -28,7 +28,7 @@ const PdfComponent = (props) => {
               titulo={'IMPRIMIR'}
               descripcion={'Genere pdf'}
               icon={'mdi mdi-printer-eye'}
-            />
+  />*/}
 
     </div>
   );

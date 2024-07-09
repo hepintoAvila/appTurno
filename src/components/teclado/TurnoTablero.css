@@ -1,0 +1,33 @@
+/* src/components/TurnoTablero.css */
+.turno-tablero {
+    margin-top: 20px;
+  }
+  
+  .turno-tablero h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .turno-tablero ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .turno-tablero li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #000;
+    margin-bottom: 5px;
+  }
+  
+  .turno-tablero li.atendido {
+    background-color: #d4edda;
+  }
+  
+  .turno-tablero button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

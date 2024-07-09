@@ -36,7 +36,7 @@
 .content-page {
     margin-left: $leftbar-width;
     overflow: hidden;
-    padding: $topbar-height 12px 65px;
+    padding: $topbar-height 12px 5px;
     margin-top: 1em;
 }
 
@@ -237,7 +237,7 @@ body[data-leftbar-compact-mode="condensed"]:not(.authentication-bg) {
 
         // Content Page
         .content-page {
-            margin-left: 70px;
+            margin-left: 0px;
         }
 
         //Navbar & Footer
@@ -407,7 +407,7 @@ body[data-leftbar-compact-mode="condensed"]:not(.authentication-bg) {
     }
     .content-page {
         margin-left: 0 !important;
-        padding: 65px 10px 65px;
+        padding: 5px 10px 5px;
     }
     body[data-leftbar-compact-mode="condensed"] {
         .leftside-menu {
@@ -537,7 +537,7 @@ body[data-layout="detached"] {
         overflow: hidden;
         padding: 0 15px 5px 30px;
         position: relative;
-        margin-right: -15px;
+        margin-right: 5px;
         width: 100%;
         padding-bottom: 60px;
     }
@@ -621,7 +621,7 @@ body[data-layout="detached"] {
         }
         .content-page {
             margin-left: 0 !important;
-            padding: 0 10px 60px 10px;
+            padding: 0 0px 0px 0px;
         }
 
         .lang-switch {

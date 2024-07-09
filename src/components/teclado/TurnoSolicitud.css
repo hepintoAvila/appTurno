@@ -1,0 +1,18 @@
+/* src/components/TurnoSolicitud.css */
+.turno-solicitud {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .turno-solicitud h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .turno-solicitud p {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  
