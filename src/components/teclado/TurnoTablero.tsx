@@ -1,4 +1,5 @@
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import './TurnoTablero.css';
 
 interface Turno {
@@ -33,20 +34,34 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno }) =
     setLocalTurnos(turnos);
   }, [turnos]);
 
+  const renderColumns = () => {
+    const columns = [];
+    for (let i = 0; i < localTurnos.length; i += 5) {
+      const columnTurnos = localTurnos.slice(i, i + 5);
+      columns.push(
+        <Col key={i} xl={3} lg={6} className="turno-tablero" >
+          <ul>
+            {columnTurnos.map((turno, index) => (
+              <li key={i + index} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
+                Turno: {turno.numero}
+                <button onClick={() => onAtenderTurno(i + index)} disabled={turno.atendido}>
+                  {turno.atendido ? <i className="mdi mdi-emoticon"></i> : <i className="mdi mdi-emoticon-angry-outline"></i>}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </Col>
+      );
+    }
+    return columns;
+  };
+
   return (
     <div className="turno-tablero">
       <h2>Tablero de Turnos</h2>
-      <ul>
-        {localTurnos?.map((turno, index) => (
-                    <li key={index} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-desnable'}>
-                    Turno: {turno.numero}
-                    <button onClick={() => onAtenderTurno(index)} disabled={turno.atendido}>
-                      {turno.atendido ?  <i className="mdi mdi-emoticon"></i>: <i className="mdi mdi-emoticon-angry-outline"></i>}
-
-                    </button>
-                  </li>
-        ))}
-      </ul>
+      <Row>
+        {renderColumns()}
+      </Row>
     </div>
   );
 };
