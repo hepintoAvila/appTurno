@@ -1,11 +1,12 @@
-// 
+//
 // tabs.scss
 //
 
-.nav-tabs,.nav-pills {
+.nav-tabs,
+.nav-pills {
     > li {
         > a {
-            color: $gray-700;
+            color: var(--#{$prefix}secondary-color);
             font-weight: $font-weight-semibold;
         }
     }
@@ -13,22 +14,21 @@
 
 .nav-pills {
     > a {
-        color: $gray-700;
-        font-weight: $font-weight-semibold;   
+        color: var(--#{$prefix}gray-700);
+        font-weight: $font-weight-semibold;
     }
 }
 
-
 .bg-nav-pills {
-    background-color: $nav-pills-bg;
+    background-color: var(--#{$prefix}tertiary-bg);
 }
 
-// 
+//
 // nav-bordered
 //
 
 .nav-tabs.nav-bordered {
-    border-bottom: 2px solid rgba($gray-600, 0.2);
+    border-bottom: 2px solid var(--#{$prefix}border-color);
 
     .nav-item {
         margin-bottom: -1px;
@@ -40,7 +40,7 @@
             padding: 0.625rem 1.25rem;
         }
         a.active {
-            border-bottom: 2px solid $primary;
+            border-bottom: 2px solid var(--#{$prefix}primary);
         }
     }
 }

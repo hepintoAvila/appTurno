@@ -2,55 +2,55 @@
 // simplemde.scss
 //
 
-.editor-toolbar.fullscreen,.CodeMirror-fullscreen {
-  z-index: 1000;
+.editor-toolbar.fullscreen,
+.CodeMirror-fullscreen {
+    z-index: 1000;
 }
 
-.editor-preview, .editor-preview-side {
-  background: $gray-300 !important;
+.editor-preview,
+.editor-preview-side {
+    background: var(--#{$prefix}gray-300);
 }
 
-.editor-preview-active{
-  background: lighten($gray-300,2.5%) !important;
-}
 
 .editor-toolbar {
-  border: 1px solid $input-border-color !important;
-  border-bottom: 0 !important;
+    border: 1px solid $input-border-color;
+    border-bottom: 0;
+    opacity: 1;
 
-  button {
-    color: $gray-700 !important;
+    a {
+        color: var(--#{$prefix}gray-700) !important;
 
-    &:hover,
-    &.active {
-      background-color: transparent !important;
-      color: $primary !important;
-      border-color: transparent !important;
+        &:hover,
+        &.active {
+            background-color: transparent;
+            color: var(--#{$prefix}primary) !important;
+            border-color: transparent;
+        }
     }
-  }
 
-  i.separator {
-    display: none !important;
-  }
-
-  &.disabled-for-preview {
-    a:not(.no-disable) {
-      background: transparent !important;
+    i.separator {
+        display: none;
     }
-  }
+
+    &.disabled-for-preview {
+        a:not(.no-disable) {
+            background: transparent;
+        }
+    }
 }
 
 .CodeMirror {
-  border: 1px solid $input-border-color !important;
-  background: $input-bg !important;
-  color: $input-color !important;
-  min-height: 100px;
+    border: 1px solid $input-border-color;
+    background: $input-bg;
+    color: $input-color;
+    min-height: 100px;
 }
 
 .CodeMirror-cursor {
-  border-left: 1px solid $gray-800 !important;
+    border-left: 1px solid var(--#{$prefix}gray-600);
 }
 
 .editor-statusbar {
-  color: $gray-800 !important;
+    color: var(--#{$prefix}gray-800);
 }

@@ -2,47 +2,87 @@
 // frappe-gantt.scss
 //
 
-
-@import 'frappe-gantt/src/gantt.scss';
-
 .gantt {
     .bar-progress {
-        fill: $primary !important;
+        fill: var(--#{$prefix}primary);
     }
+
     .bar-wrapper:hover {
         .bar-progress {
-            fill: lighten($primary, 5%) !important;
+            fill: lighten($primary, 5%);
         }
     }
-    .bar, .bar-wrapper:hover .bar {
-        fill: $progress-bg !important;
+
+    .bar,
+    .bar-wrapper:hover .bar {
+        fill: var(--#{$prefix}light);
     }
-    .bar-label, .bar-label.big {
-        fill: $gray-700 !important;
+
+    .bar-label,
+    .bar-label.big {
+        fill: var(--#{$prefix}tertiary-color);
     }
+
     .grid-header {
-        fill: $table-hover-bg !important;
-        stroke: $table-hover-bg !important;
+        fill: $table-hover-bg;
+        stroke: $table-hover-bg;
     }
+
     .grid-row {
-        fill: transparent !important;
+        fill: transparent;
+
         &:nth-child(even) {
-            fill: $table-hover-bg !important;
+            fill: $table-hover-bg;
         }
     }
-    .lower-text, .upper-text {
-        fill:  $table-color !important;
+
+    .lower-text,
+    .upper-text {
+        fill: var(--#{$prefix}body-color);
     }
+
     .row-line {
-        stroke: $table-border-color !important;
+        stroke: $table-border-color;
     }
+
     .today-highlight {
-        fill: $light !important;
+        fill: var(--#{$prefix}gray-200);
     }
 }
 
 .gantt-container {
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:vertical {
+        width: 5px;
+        margin-right: 5px;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(var(--#{$prefix}dark-rgb), 0.2);
+        border-radius: 10px;
+        margin-right: 5px;
+        border: none;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+
     .popup-wrapper {
+        background: transparent;
+
         .pointer {
             display: none;
         }

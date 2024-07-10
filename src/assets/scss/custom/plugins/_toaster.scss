@@ -6,14 +6,17 @@
     text-align: left !important;
     padding: 15px;
     font-family: $font-family-base;
-    background-color: $primary;
+    background-color: var(--#{$prefix}primary);
     font-size: 13px;
     line-height: 22px;
+
     h2 {
         font-family: $font-family-base;
     }
+
     a {
         font-size: $font-size-base;
+
         &:hover {
             color: $white;
         }
@@ -33,8 +36,8 @@
     cursor: pointer;
     height: 32px;
     width: 32px;
-    background: $gray-800;
-    color: $gray-100;
+    background: var(--#{$prefix}gray-800);
+    color: var(--#{$prefix}gray-300);
     border-radius: 50%;
     text-align: center;
     line-height: 32px;
@@ -46,7 +49,8 @@
     border-radius: 0;
 }
 
-@each $color,$value in $theme-colors {
+@each $color,
+$value in $theme-colors {
     .jq-icon-#{$color} {
         background-color: #{$value};
         color: $white;
@@ -62,6 +66,9 @@
 }
 
 
-.jq-icon-info, .jq-icon-warning, .jq-icon-error, .jq-icon-success {
+.jq-icon-info,
+.jq-icon-warning,
+.jq-icon-error,
+.jq-icon-success {
     background-image: none;
 }

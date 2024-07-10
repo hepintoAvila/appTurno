@@ -2,9 +2,20 @@
 // _quill-editor.scss
 //
 
-
 .ql-editor {
     text-align: left;
+
+    ol,
+    ul {
+        padding-left: 1.5em;
+        padding-right: 0;
+    }
+
+    li:not(.ql-direction-rtl)::before {
+        margin-left: -1.5em;
+        margin-right: 0.3em;
+        text-align: right;
+    }
 }
 
 .ql-container {
@@ -12,6 +23,7 @@
 
     &.ql-snow {
         border-color: $input-border-color;
+        border-radius: 0 0 $input-border-radius $input-border-radius;
     }
 }
 
@@ -22,6 +34,7 @@
 
 .ql-toolbar {
     font-family: $font-family-base !important;
+
     span {
         outline: none !important;
         color: $dropdown-link-color;
@@ -32,12 +45,18 @@
     }
 
     &.ql-snow {
+        border-radius: $input-border-radius $input-border-radius 0 0;
         border-color: $input-border-color;
 
         .ql-picker.ql-expanded {
             .ql-picker-label {
                 border-color: transparent;
             }
+        }
+
+        .ql-picker-options {
+            box-shadow: $dropdown-box-shadow;
+            border-radius: $dropdown-border-radius;
         }
     }
 }
@@ -48,8 +67,22 @@
     .ql-strike svg {
         stroke: $dropdown-link-color;
     }
+
     .ql-fill {
         fill: $dropdown-link-color;
+    }
+
+    .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) {
+        svg {
+            right: 0;
+            left: auto;
+        }
+    }
+
+    .ql-picker {
+        &.ql-expanded .ql-picker-label {
+            color: $dropdown-link-color;
+        }
     }
 }
 

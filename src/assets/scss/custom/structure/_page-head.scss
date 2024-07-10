@@ -10,8 +10,9 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        color: $page-title-color;
+        // color: $page-title-color;
     }
+
     .page-title-right {
         float: right;
         margin-top: 20px;
@@ -19,21 +20,15 @@
 
     .breadcrumb {
         padding-top: 8px;
-
     }
+}
 
-}
-.position-title-top{
-  margin-right: -10em;
-  width: 50em;
-  position: relative;
-  margin-top:13em;
-}
 .page-title-box-sm {
     .page-title {
         line-height: 1 !important;
         margin-bottom: 25px;
     }
+
     .page-title-right {
         float: right;
         margin-top: 0;
@@ -45,12 +40,11 @@
     }
 }
 
-
 .text-title {
-    color: $text-title-color;
+    color: var(--#{$prefix}secondary-color);
 
     &:hover {
-        color: $text-title-color;
+        color: var(--#{$prefix}tertiary-color);
     }
 }
 
@@ -63,9 +57,11 @@
             overflow: hidden;
             line-height: 70px;
         }
+
         .breadcrumb {
             display: none;
         }
+
         .page-title-right {
             display: none;
         }
@@ -76,4 +72,8 @@
     .page-title-box .breadcrumb {
         display: none;
     }
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

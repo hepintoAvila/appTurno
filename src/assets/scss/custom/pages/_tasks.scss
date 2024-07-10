@@ -1,4 +1,4 @@
-// 
+//
 // tasks.scss
 //
 
@@ -12,9 +12,9 @@
     display: inline-block;
     width: 22rem;
     padding: 0 1rem 1rem 1rem;
-    border: 1px solid $gray-200;
+    border: 1px solid var(--#{$prefix}border-color);
     vertical-align: top;
-    margin-bottom: $grid-gutter-width;
+    margin-bottom: $spacer;
     @include border-radius($card-border-radius);
 
     &.tasks:not(:last-child) {
@@ -27,7 +27,7 @@
     }
 
     .task-header {
-        background-color: $gray-100;
+        background-color: var(--#{$prefix}tertiary-bg);
         padding: 1rem;
         margin: 0 -1rem;
     }
@@ -36,7 +36,7 @@
 .task-list-items {
     min-height: 100px;
     position: relative;
-    
+
     &:before {
         content: "No Tasks";
         position: absolute;
@@ -47,12 +47,11 @@
     }
 }
 
-
 // Task add modal
 .task-modal-content {
     .form-control-light {
-        background-color: lighten($gray-200,2.5%) !important;
-        border-color: lighten($gray-200,2.5%) !important;
+        background-color: var(--#{$prefix}light) !important;
+        border-color: var(--#{$prefix}border-color) !important;
     }
 }
 

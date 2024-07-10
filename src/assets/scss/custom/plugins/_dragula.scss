@@ -1,9 +1,9 @@
-// 
+//
 // dragula.scss
 //
 
 .bg-dragula {
-    background-color: $dragula-bg;
+    background-color: var(--#{$prefix}tertiary-bg);
 }
 
 .gu-mirror {

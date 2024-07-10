@@ -10,7 +10,7 @@
 
     &:before {
         content: "";
-        background-color: $body-bg;
+        background-color: var(--#{$prefix}body-bg);
         width: 5px;
         position: absolute;
         right: -15px;
@@ -18,25 +18,10 @@
         bottom: -1.5rem;
     }
 }
-.page-aside-details {
-  width: 700px;
-  float: left;
-  padding: 0 20px 20px 10px;
-  position: relative;
 
-  &:before {
-      content: "";
-      background-color: $body-bg;
-      width: 5px;
-      position: absolute;
-      right: -15px;
-      height: 100%;
-      bottom: -1.5rem;
-  }
-}
 .page-aside-right {
     margin: -1.5rem 0 -1.5rem 250px;
-    border-left: 5px solid $body-bg;
+    border-left: 5px solid var(--#{$prefix}body-bg);
     padding: 1.5rem 0 1.5rem 25px;
 }
 
@@ -51,13 +36,13 @@
         height: 51px;
         line-height: 50px;
         cursor: default;
-        transition-duration: .3s;
+        transition-duration: 0.3s;
 
         a {
-            color: $gray-700;
+            color: var(--#{$prefix}body-color);
 
             &:hover {
-                color: $gray-800;
+                color: var(--#{$prefix}tertiary-color);
             }
         }
 
@@ -83,7 +68,7 @@
             }
 
             .star-toggle {
-                color: $gray-500;
+                color: var(--#{$prefix}gray-500);
                 margin-left: 10px;
                 font-size: 18px;
             }
@@ -129,14 +114,14 @@
 
         &.active,
         &.mail-selected {
-            background: $gray-100;
-            transition-duration: .05s;
+            background: var(--#{$prefix}tertiary-bg);
+            transition-duration: 0.05s;
         }
 
         &.unread {
             a {
                 font-weight: $font-weight-semibold;
-                color: darken($dark, 5%);
+                color: var(--#{$prefix}dark);
             }
         }
 
@@ -165,8 +150,8 @@
         }
 
         &:hover {
-            background: $gray-100;
-            transition-duration: .05s;
+            background: var(--#{$prefix}tertiary-bg);
+            transition-duration: 0.05s;
 
             .email-action-icons {
                 opacity: 1;
@@ -193,13 +178,13 @@
 
 .email-menu-list {
     a {
-        color: $gray-700;
+        color: var(--#{$prefix}secondary-color);
         padding: 12px 5px;
         display: block;
         font-size: 15px;
 
         &:hover {
-            color: $gray-800;
+            color: var(--#{$prefix}tertiary-color);
         }
 
         .badge {
@@ -237,7 +222,7 @@
     }
     .email-list {
         li {
-            .email-sender-info  {
+            .email-sender-info {
                 .checkbox-wrapper-mail {
                     margin-left: 0;
                 }

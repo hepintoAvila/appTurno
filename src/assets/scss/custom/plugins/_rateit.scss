@@ -60,7 +60,6 @@
         display: none;
     }
 
-
     .rateit-range {
         position: relative;
         display: -moz-inline-box;
@@ -71,11 +70,11 @@
 
     &.rateit-font {
         .rateit-reset {
-            width: .6em;
-            height: .6em;
+            width: 0.6em;
+            height: 0.6em;
             margin-right: 5px;
             margin-top: 5px;
-            background: $gray-300;
+            background: var(--#{$prefix}tertiary-bg);
             border-radius: 50%;
             position: relative;
 
@@ -84,7 +83,7 @@
                 height: calc(50% - 0.045em);
                 top: 2px;
                 position: absolute;
-                border-bottom: 2px solid $gray-700;
+                border-bottom: 2px solid var(--#{$prefix}emphasis-color);
                 width: 50%;
                 margin-left: 25%;
                 margin-right: 25%;
@@ -93,7 +92,7 @@
         .rateit-reset:hover,
         button.rateit-reset:focus {
             background: $danger;
-            
+
             span {
                 border-color: $white;
             }
@@ -102,7 +101,7 @@
 }
 
 .rateit-mdi {
-    font-family:'Material Design Icons';
+    font-family: "Material Design Icons";
 }
 
 .rateit-font {
@@ -120,8 +119,13 @@
             white-space: nowrap;
         }
     }
-    
+
     .rateit-empty {
-        color: $gray-400;
+        color: var(--#{$prefix}border-color);
     }
+}
+
+.rateit .rateit-hover-rtl,
+.rateit .rateit-selected-rtl {
+    right: auto;
 }

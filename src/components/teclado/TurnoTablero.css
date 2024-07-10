@@ -1,18 +1,31 @@
 /* src/components/TurnoTablero.css */
 .turno-tablero {
-    margin-top: 20px;
+  margin-top: 63px;
+  width: max-content;
+
   }
-  
+  .turno-tablero-enable {
+    text-overflow: ellipsis;
+    font-size: 18px;
+    color: aliceblue;
+    background-color: rgb(22, 147, 11);
+  }
+  .turno-tablero-desnable {
+    text-overflow: ellipsis;
+    font-size: 18px;
+    color: aliceblue;
+    background-color: brown;
+  }
   .turno-tablero h2 {
     font-size: 24px;
     margin-bottom: 10px;
   }
-  
+
   .turno-tablero ul {
     list-style: none;
     padding: 0;
   }
-  
+
   .turno-tablero li {
     display: flex;
     justify-content: space-between;
@@ -21,13 +34,14 @@
     border: 1px solid #000;
     margin-bottom: 5px;
   }
-  
+
   .turno-tablero li.atendido {
     background-color: #d4edda;
   }
-  
+
   .turno-tablero button {
     padding: 5px 10px;
     cursor: pointer;
   }
-  
+
+
