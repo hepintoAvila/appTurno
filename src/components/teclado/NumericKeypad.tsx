@@ -34,7 +34,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
       //const data = await response.json();
       // Actualiza el contexto de turnos con el nuevo turno
       setDisplay(''); // Limpia el display después de enviar el turno
-      //window.location.reload();
+      window.location.reload();
 
     } catch (error) {
       console.error('Error submitting turno:', error);

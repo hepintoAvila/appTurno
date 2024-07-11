@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { TurnoSolicitud, TurnoTablero } from '@/components/teclado';
 import { useTurnoContext } from '@/common';
+import TurnoTableroUsuario from '@/components/teclado/TurnoTableroUsuario';
 
 const TurnosDashboard = () => {
   const { handleAtenderTurno, turnos } = useTurnoContext();
@@ -35,10 +36,8 @@ const TurnosDashboard = () => {
             return (
               <Row>
                 <Col xl={3} lg={{ span: 6, order: 1 }}>
-                  <TurnoTablero
+                  <TurnoTableroUsuario
                     turnos={turnos}
-                    onAtenderTurno={handleAtenderTurno}
-                    user={user?.username}
                   />
                 </Col>
                 <Col xl={6} lg={{ span: 6, order: 1 }}>
