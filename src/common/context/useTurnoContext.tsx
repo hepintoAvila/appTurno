@@ -1,78 +1,75 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import io from 'socket.io-client';
+import axios from 'axios';
 
-type Turno = {
+interface Turno {
+  codigo: string;
   numero: string;
   atendido: boolean;
-};
+  _id: string;
+  __v: number;
+}
 
 interface TurnoContextProps {
   turnos: Turno[];
-  handleTurnoSubmit: (value: string) => void;
-  handleAtenderTurno: (index: number) => void;
+  handleAtenderTurno: (turno: Turno) => void; // Cambiar a recibir Turno como parámetro
+
 }
 
 const TurnoContext = createContext<TurnoContextProps | undefined>(undefined);
 
-export function useTurnoContext() {
+export const useTurnoContext = () => {
   const context = useContext(TurnoContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useTurnoContext must be used within a TurnoProvider');
   }
   return context;
-}
+};
 
-export function TurnoProvider({ children }: { children: ReactNode }) {
-  const [turnos, setTurnos] = useState<Turno[]>(() => {
-    const savedTurnos = localStorage.getItem('turnos');
-    return savedTurnos ? JSON.parse(savedTurnos) : [];
-  });
+export const TurnoProvider: React.FC = ({ children }) => {
+  const [turnos, setTurnos] = useState<Turno[]>([]);
 
   useEffect(() => {
-    localStorage.setItem('turnos', JSON.stringify(turnos));
-  }, [turnos]);
+    const socket = io('http://localhost:5000');
 
-  const generateTurnoNumber = (input: string) => {
-    const prefix = 'A';
-    const maxTurnos = 9999;
-    let currentTurno = 0;
-
-    if (turnos.length > 0) {
-      const lastTurno = turnos[turnos.length - 1].numero;
-      currentTurno = parseInt(lastTurno.slice(1), 10);
-    }
-
-    if (currentTurno >= maxTurnos) {
-      throw new Error('Max turnos reached');
-    }
-
-    const newTurno = prefix + String(currentTurno + 1).padStart(4, '0');
-    return newTurno;
-  };
-
-  const handleTurnoSubmit = useCallback((input: string) => {
-    const newTurno = generateTurnoNumber(input);
-    setTurnos(prevTurnos => [...prevTurnos, { numero: newTurno, atendido: false }]);
-  }, [turnos]);
-
-  const handleAtenderTurno = useCallback((index: number) => {
-    setTurnos(prevTurnos => {
-      const nuevosTurnos = [...prevTurnos];
-      if (nuevosTurnos[index]) {
-        nuevosTurnos[index].atendido = true;
-      }
-      return nuevosTurnos;
+    socket.on('turnoAtendido', (data: Turno) => {
+      setTurnos(prevTurnos =>
+        prevTurnos.map(turno =>
+          turno._id === data._id ? { ...turno, atendido: true } : turno
+        )
+      );
     });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
+  useEffect(() => {
+    axios.get<Turno[]>('http://localhost:5000/api/turnos')
+      .then(response => {
+        setTurnos(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching turnos:', error);
+      });
+  }, []);
+
+  const handleAtenderTurno = (turno: Turno) => {
+    const updatedTurnos = turnos?.map(t =>
+      t._id === turno._id ? { ...t, atendido: true } : t
+    );
+    setTurnos(updatedTurnos);
+
+    // Emitir evento a través de Socket.io
+    const socket = io('http://localhost:5000');
+    socket.emit('turnoAtendido', turno);
+    socket.disconnect();
+  };
+
   return (
-    <TurnoContext.Provider
-      value={{
-        turnos,
-        handleTurnoSubmit,
-        handleAtenderTurno,
-      }}
-    >
+    <TurnoContext.Provider value={{ turnos, handleAtenderTurno }}>
       {children}
     </TurnoContext.Provider>
   );
-}
+};

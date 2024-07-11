@@ -6,6 +6,7 @@ interface NumericKeypadProps {
 }
 
 const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
+
   const [display, setDisplay] = useState<string>('');
 
   const handleButtonClick = (value: number) => {
@@ -16,9 +17,28 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
     setDisplay('');
   };
 
-  const handleSubmit = () => {
-    onSubmit(display);
-    setDisplay('');
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/turnos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ numero: display }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit turno');
+      }
+
+      //const data = await response.json();
+      // Actualiza el contexto de turnos con el nuevo turno
+      setDisplay(''); // Limpia el display después de enviar el turno
+      //window.location.reload();
+
+    } catch (error) {
+      console.error('Error submitting turno:', error);
+    }
   };
 
   return (

@@ -1,60 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import './TurnoTablero.css';
 
 interface Turno {
+  codigo: string;
   numero: string;
   atendido: boolean;
+  _id: string;
+  __v: number;
 }
 
 interface TurnoTableroProps {
   turnos: Turno[];
-  onAtenderTurno: (index: number) => void;
+  onAtenderTurno: (turno: Turno) => void; // Cambiar a recibir Turno como parámetro
   user: string | undefined;
 }
 
-const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user,onAtenderTurno }) => {
-  const [localTurnos, setLocalTurnos] = useState<Turno[]>(turnos);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const savedTurnos = localStorage.getItem('turnos');
-      if (savedTurnos) {
-        setLocalTurnos(JSON.parse(savedTurnos));
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    setLocalTurnos(turnos);
-  }, [turnos]);
-
-  useEffect(() => {
-    setLocalTurnos(turnos);
-  }, [turnos]);
+const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno, user }) => {
+  const handleAtenderClick = (turno: Turno) => {
+    onAtenderTurno(turno);
+  };
 
   const renderColumns = () => {
     const columns = [];
-    for (let i = 0; i < localTurnos.length; i += 5) {
-      const columnTurnos = localTurnos.slice(i, i + 5);
+    for (let i = 0; i < turnos.length; i += 5) {
+      const columnTurnos = turnos.slice(i, i + 5);
       columns.push(
-        <Col key={i} xl={3} lg={6} className="turno-tablero" >
+        <Col key={i} xl={3} lg={6} className="turno-tablero">
           <ul>
-            {columnTurnos.map((turno, index) => (
-              <li key={i + index} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
-                Turno: {turno.numero}
-                {user==='Ventanilla' ? (
-                  <button onClick={() => onAtenderTurno(i + index)} disabled={turno.atendido}>
-                  {turno.atendido ? <i className="mdi mdi-emoticon"></i> : <i className="mdi mdi-emoticon-angry-outline"></i>}
-                </button>):(<button>
-                  {turno.atendido ? <i className="mdi mdi-emoticon"></i> : <i className="mdi mdi-emoticon-angry-outline"></i>}
-                </button>)}
+            {columnTurnos.map(turno => (
+              <li key={turno._id} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
+                Turno: {turno.codigo}
+                {user === 'Ventanilla' && (
+                  <button onClick={() => handleAtenderClick(turno)} disabled={turno.atendido}>
+                    {turno.atendido ? <i className="mdi mdi-emoticon"></i> : <i className="mdi mdi-emoticon-angry-outline"></i>}
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -67,9 +48,7 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user,onAtenderTurno
   return (
     <div className="turno-tablero">
       <h2>Tablero de Turnos</h2>
-      <Row>
-        {renderColumns()}
-      </Row>
+      <Row>{renderColumns()}</Row>
     </div>
   );
 };

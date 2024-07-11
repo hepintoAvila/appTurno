@@ -5,10 +5,7 @@ import { useTurnoContext } from '@/common';
 import { Row, Col } from 'react-bootstrap';
 
 const TurnoSolicitud: React.FC = () => {
-  const {
-
-    handleTurnoSubmit,
-  } = useTurnoContext();
+  const {handleAtenderTurno} = useTurnoContext();
 
   return (
     <Row>
@@ -17,7 +14,7 @@ const TurnoSolicitud: React.FC = () => {
     <Col xl={6} lg={{ span: 6, order: 2 }}>
     <div className="turno-solicitud">
       <h1>Solicitud de Turno</h1>
-      <NumericKeypad onSubmit={handleTurnoSubmit} />
+      <NumericKeypad onSubmit={handleAtenderTurno} />
     </div>
     </Col>
     <Col xl={3} lg={{ span: 6, order: 3 }}>
