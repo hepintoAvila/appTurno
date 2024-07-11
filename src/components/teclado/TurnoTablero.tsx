@@ -10,9 +10,10 @@ interface Turno {
 interface TurnoTableroProps {
   turnos: Turno[];
   onAtenderTurno: (index: number) => void;
+  user: string | undefined;
 }
 
-const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno }) => {
+const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user,onAtenderTurno }) => {
   const [localTurnos, setLocalTurnos] = useState<Turno[]>(turnos);
 
   useEffect(() => {
@@ -34,6 +35,10 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno }) =
     setLocalTurnos(turnos);
   }, [turnos]);
 
+  useEffect(() => {
+    setLocalTurnos(turnos);
+  }, [turnos]);
+
   const renderColumns = () => {
     const columns = [];
     for (let i = 0; i < localTurnos.length; i += 5) {
@@ -44,9 +49,12 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno }) =
             {columnTurnos.map((turno, index) => (
               <li key={i + index} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
                 Turno: {turno.numero}
-                <button onClick={() => onAtenderTurno(i + index)} disabled={turno.atendido}>
+                {user==='Ventanilla' ? (
+                  <button onClick={() => onAtenderTurno(i + index)} disabled={turno.atendido}>
                   {turno.atendido ? <i className="mdi mdi-emoticon"></i> : <i className="mdi mdi-emoticon-angry-outline"></i>}
-                </button>
+                </button>):(<button>
+                  {turno.atendido ? <i className="mdi mdi-emoticon"></i> : <i className="mdi mdi-emoticon-angry-outline"></i>}
+                </button>)}
               </li>
             ))}
           </ul>
