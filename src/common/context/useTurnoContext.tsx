@@ -55,16 +55,33 @@ export const TurnoProvider: React.FC = ({ children }) => {
       });
   }, []);
 
-  const handleAtenderTurno = (turno: Turno) => {
-    const updatedTurnos = turnos?.map(t =>
-      t._id === turno._id ? { ...t, atendido: true } : t
-    );
-    setTurnos(updatedTurnos);
+  const handleAtenderTurno = async (turno: Turno) => {
+    try {
+      // Actualiza el estado localmente
+      const updatedTurnos = turnos?.map(t =>
+        t._id === turno._id ? { ...t, atendido: true } : t
+      );
+      setTurnos(updatedTurnos);
 
-    // Emitir evento a través de Socket.io
-    const socket = io('http://localhost:5000');
-    socket.emit('turnoAtendido', turno);
-    socket.disconnect();
+      // Actualiza en la base de datos
+      const response = await fetch(`http://localhost:5000/api/turnos/${turno._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update turno');
+      }
+
+      // Emitir evento a través de Socket.io
+      const socket = io('http://localhost:5000');
+      socket.emit('turnoAtendido', turno);
+      socket.disconnect();
+    } catch (error) {
+      console.error('Error updating turno:', error);
+    }
   };
 
   return (

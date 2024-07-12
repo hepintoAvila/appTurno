@@ -15,6 +15,7 @@ import logoDarkSm from '@/assets/images/logo-dark-sm.png';
 import { ThemeSettings, useThemeContext } from '@/common';
 import useThemeCustomizer from '@/components/ThemeCustomizer/useThemeCustomizer';
 import { useViewport } from '@/hooks';
+import { useState } from 'react';
 
 type TopbarProps = {
 	topbarDark?: boolean;
@@ -24,7 +25,11 @@ type TopbarProps = {
 
 const Topbar = ({ topbarDark, toggleMenu, navOpen }: TopbarProps) => {
 	const { settings, updateSettings, updateSidebar } = useThemeContext();
-
+  const [user, setUser] = useState<{ username?: string }>(
+    localStorage.getItem('_HYPER_AUTH')
+      ? JSON.parse(localStorage.getItem('_HYPER_AUTH') || '{}')
+      : {}
+  );
 	const { sideBarType } = useThemeCustomizer();
 
 	const { width } = useViewport();
@@ -92,7 +97,7 @@ const Topbar = ({ topbarDark, toggleMenu, navOpen }: TopbarProps) => {
 	const handleRightSideBar = () => {
 		updateSettings({ rightSidebar: ThemeSettings.rightSidebar.show });
 	};
-console.log('navOpen',sideBarType)
+
 	return (
 		<div className={'navbar-custom'}>
 			<div className="topbar container-fluid">
@@ -123,7 +128,7 @@ console.log('navOpen',sideBarType)
 						</div>
 					</button>
 
-					
+
 				</div>
 
 				<ul className="topbar-menu d-flex align-items-center gap-3">
@@ -157,8 +162,8 @@ console.log('navOpen',sideBarType)
 						<ProfileDropdown
 							userImage={userImage}
 							menuItems={profileMenus}
-							username={'Dominic Keller'}
-							userTitle={'Founder'}
+							username={user?.username}
+							userTitle={''}
 						/>
 					</li>
 				</ul>

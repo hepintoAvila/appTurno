@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
- 
+
 // images
 import Logo from '@/assets/images/logo.png';
 
@@ -13,7 +13,7 @@ type AccountWrapperProps = {
 export default function AccountWrapper({ bottomLinks, children }: AccountWrapperProps) {
 	return (
 		<>
-		 
+
 			<div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
 				<Container>
 					<Row className="justify-content-center">
@@ -34,9 +34,9 @@ export default function AccountWrapper({ bottomLinks, children }: AccountWrapper
 				</Container>
 			</div>
 			<footer className="footer footer-alt">
-				2024 - {new Date().getFullYear()} © Hyper -
-				<Link to="https://coderthemes.com/" target="_blank">
-					Coderthemes.com
+				2024 - {new Date().getFullYear()} © Oficina Registro y Control -
+				<Link to="#" target="_blank">
+					unicesar.edu.co
 				</Link>
 			</footer>
 		</>

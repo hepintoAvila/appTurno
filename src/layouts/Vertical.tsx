@@ -84,7 +84,7 @@ export default function VerticalLayout() {
 	const isCondensed = settings.sidebar.size === ThemeSettings.sidebar.size.condensed;
 	const topbarDark = settings.topbar.theme !== ThemeSettings.topbar.theme.light;
 	const leftbarDark = settings.sidebar.theme !== ThemeSettings.sidebar.theme.light;
-  console.log('ThemeSettings',settings)
+  //console.log('ThemeSettings',settings)
 	return (
 		<>
 			<div className="wrapper">

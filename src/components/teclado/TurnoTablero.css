@@ -36,12 +36,20 @@
   }
 
   .turno-tablero li.atendido {
-    background-color: #d4edda;
+    background-color: #ffffff;
   }
 
   .turno-tablero button {
     padding: 5px 10px;
     cursor: pointer;
+    background:transparent;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    shape-outside: circle();
+    clip-path: circle();
+    color: rgb(243, 243, 243);
+    float: left;
   }
 
 

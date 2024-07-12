@@ -132,7 +132,7 @@ html[data-bs-theme="dark"] {
     }
 }
 
-// Topbar light/Dark Mode icon 
+// Topbar light/Dark Mode icon
 html[data-bs-theme="dark"] {
     #light-dark-mode {
         .ri-moon-line {
@@ -325,8 +325,14 @@ html[data-bs-theme="dark"] {
     transition: none;
 }
 
-
-
+.bg-primary {
+  --ct-bg-opacity: 1;
+  background-color: rgba(#6cb172, var(--ct-bg-opacity)) !important;
+}
+.btn-primary{
+  --ct-bg-opacity: 1;
+  background-color: rgba(#0a530e, var(--ct-bg-opacity)) !important;
+}
 // fullscreen exit icon
 .fullscreen-enable {
     .ri-fullscreen-line::before {

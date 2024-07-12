@@ -51,7 +51,10 @@ const ErrorPageNotFound = () => {
 			</div>
 
 			<footer className="footer footer-alt">
-				2018 - {new Date().getFullYear()} © Hyper - Coderthemes.com
+      2024 - {new Date().getFullYear()} © Oficina Registro y Control -
+				<Link to="#" target="_blank">
+					unicesar.edu.co
+				</Link>
 			</footer>
 		</>
 	);

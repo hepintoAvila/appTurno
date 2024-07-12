@@ -7,7 +7,7 @@ import { useToggle } from '@/hooks';
 type ProfileDropdownProps = {
 	menuItems: Array<ProfileOption>;
 	userImage: string;
-	username: string;
+	username: string |undefined;
 	userTitle?: string;
 };
 

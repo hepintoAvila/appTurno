@@ -12,10 +12,14 @@ interface Turno {
 
 interface TurnoTableroProps {
   turnos: Turno[];
+  onAtenderTurno: (turno: Turno) => void; // Cambiar a recibir Turno como parámetro
   user: string | undefined;
 }
 
-const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
+const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno, user }) => {
+  const handleAtenderClick = (turno: Turno) => {
+    onAtenderTurno(turno);
+  };
 
   const renderColumns = () => {
     const columns = [];
@@ -26,10 +30,12 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
           <ul>
             {columnTurnos.map(turno => (
               <li key={turno._id} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
-                 {turno.codigo}
-                  <button  disabled={turno.atendido}>
+                Turno: {turno.codigo}
+                {user === 'Ventanilla' && (
+                  <button onClick={() => handleAtenderClick(turno)} disabled={turno.atendido}>
                     {turno.atendido ? <i className="ri-checkbox-circle-line"></i> : <i className="ri-close-circle-line"></i>}
                   </button>
+                )}
               </li>
             ))}
           </ul>
@@ -47,4 +53,4 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
   );
 };
 
-export default TurnoTablero;
+export default TurnoTableroVentanilla;

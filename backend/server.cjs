@@ -85,6 +85,22 @@ app.post('/api/turnos', async (req, res) => {
     res.status(500).json({ error: 'Error al guardar turno' });
   }
 });
+// Ruta para actualizar el campo 'atendido'
+app.put('/api/turnos/:id', async (req, res) => {
+  try {
+    const turno = await Turno.findByIdAndUpdate(
+      req.params.id,
+      { atendido: true },
+      { new: true }
+    );
+    if (!turno) {
+      return res.status(404).send('Turno not found');
+    }
+    res.send(turno);
+  } catch (error) {
+    res.status(500).send('Error updating turno: ' + error.message);
+  }
+});
 app.use('/api', turnoRoutes);
 // Iniciar el servidor
 server.listen(PORT, () => {

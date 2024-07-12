@@ -18,17 +18,18 @@ const UserBox = () => {
 					height="42"
 					className="rounded-circle shadow-sm"
 				/>
-				<span className="leftbar-user-name mt-2">Dominic Keller</span>
+				<span className="leftbar-user-name mt-2">{''}</span>
 			</Link>
 		</div>
 	);
 };
 
 const SideBarContent = () => {
+
 	return (
 		<>
 			<UserBox />
-			 
+
 			<div className="clearfix" />
 		</>
 	);
