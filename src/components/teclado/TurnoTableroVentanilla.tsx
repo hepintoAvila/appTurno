@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import './TurnoTablero.css';
-
+import  playSound  from '../../common/helpers/playSound';
 interface Turno {
   codigo: string;
   numero: string;
@@ -19,6 +19,7 @@ interface TurnoTableroProps {
 const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno, user }) => {
   const handleAtenderClick = (turno: Turno) => {
     onAtenderTurno(turno);
+    playSound();
   };
 
   const renderColumns = () => {
