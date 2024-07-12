@@ -6,6 +6,7 @@ interface Turno {
   codigo: string;
   numero: string;
   atendido: boolean;
+  fecha: Date;
   _id: string;
   __v: number;
 }

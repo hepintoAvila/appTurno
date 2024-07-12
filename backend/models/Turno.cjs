@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const turnoSchema = new mongoose.Schema({
   codigo: { type: String, required: true }, // Campo para almacenar el código consecutivo
   numero: { type: String, required: true },
-  atendido: { type: Boolean, default: false }
+  atendido: { type: Boolean, default: false },
+  fecha: { type: Date, default: Date.now },
+  opcion: { type: String, required: true }
 });
 
 const Turno = mongoose.model('Turno', turnoSchema);

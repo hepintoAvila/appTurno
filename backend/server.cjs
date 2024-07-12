@@ -7,6 +7,7 @@ const { Server } = require('socket.io'); // Cambiado aquí
 const http = require('http');
 const { Turno, generarCodigoConsecutivo } = require('./models/Turno.cjs'); // Ajusta la ruta según sea necesario
 const turnoRoutes = require('./routes/turnoRoutes.cjs');
+const opcionesRouter = require('./routes/opciones.cjs'); // Asegúrate de tener esta línea
 
 // Configurar dotenv para cargar variables de entorno
 dotenv.config();
@@ -68,15 +69,17 @@ app.get('/api/turnos', async (req, res) => {
 });
 // Ruta para guardar un nuevo turno
 app.post('/api/turnos', async (req, res) => {
-  const { numero } = req.body;
+  const { numero,opcion } = req.body;
 
   if (!numero) {
     return res.status(400).json({ error: 'Número de turno requerido' });
   }
-
+  if (!opcion) {
+    return res.status(400).json({ error: 'Opcion requerido' });
+  }
   try {
     const codigo = await generarCodigoConsecutivo();
-    const nuevoTurno = new Turno({ codigo, numero });
+    const nuevoTurno = new Turno({ codigo, numero,opcion });
     await nuevoTurno.save();
 
     res.status(201).json(nuevoTurno);
@@ -102,6 +105,7 @@ app.put('/api/turnos/:id', async (req, res) => {
   }
 });
 app.use('/api', turnoRoutes);
+app.use('/api/opciones', opcionesRouter);
 // Iniciar el servidor
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

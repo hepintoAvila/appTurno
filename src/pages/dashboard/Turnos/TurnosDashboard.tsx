@@ -20,13 +20,12 @@ const TurnosDashboard = () => {
           case 'Teclado':
             return (
               <Row>
-                <Col xl={3} lg={{ span: 6, order: 1 }}>
+                <Col xl={6} lg={{ span: 6, order: 1 }}>
                   <TurnoSolicitud />
                 </Col>
-                <Col xl={9} lg={{ span: 6, order: 1 }}>
+                <Col xl={6} lg={{ span: 6, order: 1 }}>
                   <TurnoTablero
                     turnos={turnos}
-
                     user={user?.username}
                   />
                 </Col>

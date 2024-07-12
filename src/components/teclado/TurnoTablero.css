@@ -51,5 +51,12 @@
     color: rgb(243, 243, 243);
     float: left;
   }
-
+.options {
+  background-color: #d6f1e1;
+  font-size: 1em;
+  padding: 0em 1em 1em 1em;
+  width: 28em;
+  height: 23em;
+  margin-right: 8em;
+}
 

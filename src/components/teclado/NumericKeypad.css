@@ -5,7 +5,7 @@
     align-items: center;
     margin-top: 50px;
   }
-  
+
   .display {
     width: 200px;
     height: 50px;
@@ -16,16 +16,34 @@
     padding: 10px;
     box-sizing: border-box;
   }
-  
+
   .keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
-  
+
   button {
     width: 60px;
     height: 60px;
     font-size: 24px;
   }
-  
+  .options-lista{
+    width: 14em;
+    font-size: large;
+    padding: 0.2em;
+    list-style: none;
+  }
+  .options-lista li{
+    width: 14em;
+    font-size: large;
+    padding: 0.2em;
+    list-style: none;
+  }
+  .teclado-enter {
+    font-size: 39px;
+    margin-bottom: 21px;
+    list-style: none;
+    padding: 'revert-layer';
+    cursor: pointer;
+  }

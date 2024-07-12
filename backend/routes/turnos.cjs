@@ -1,25 +1,51 @@
-// backend/routes/turnos.js
+// routes/turnos.js
+
 const express = require('express');
-const Turno = require('../models/Turno.cjs');
 const router = express.Router();
+const Turno = require('../models/Opcion.cjs');
 
 // Obtener todos los turnos
 router.get('/', async (req, res) => {
-  const turnos = await Turno.find();
-  res.json(turnos);
+  try {
+    const turnos = await Turno.find().sort({ fecha: -1 });
+    res.json(turnos);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // Crear un nuevo turno
 router.post('/', async (req, res) => {
-  const nuevoTurno = new Turno(req.body);
-  await nuevoTurno.save();
-  res.json(nuevoTurno);
+  const turno = new Turno({
+    numero: req.body.numero,
+    fecha: req.body.fecha || Date.now()
+  });
+
+  try {
+    const newTurno = await turno.save();
+    res.status(201).json(newTurno);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
-// Marcar un turno como atendido
-router.put('/:id', async (req, res) => {
-  const turnoActualizado = await Turno.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(turnoActualizado);
+// Actualizar un turno
+router.patch('/:id', async (req, res) => {
+  try {
+    const turno = await Turno.findById(req.params.id);
+    if (turno == null) {
+      return res.status(404).json({ message: 'Cannot find turno' });
+    }
+
+    if (req.body.atendido != null) {
+      turno.atendido = req.body.atendido;
+    }
+
+    const updatedTurno = await turno.save();
+    res.json(updatedTurno);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
 module.exports = router;
