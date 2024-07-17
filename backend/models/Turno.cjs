@@ -30,7 +30,7 @@ async function generarCodigoConsecutivo(opcion) {
   const newNumber = lastNumber + 1;
   const newNumberStr = newNumber.toString().padStart(4, '0');
 
-  return `${prefix}${newNumberStr}`;
+  return `${prefix}-${newNumberStr}`;
 }
 
 module.exports = { Turno, generarCodigoConsecutivo };

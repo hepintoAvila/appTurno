@@ -21,7 +21,7 @@ const TurnoTableroUsuario: React.FC<TurnoTableroProps> = ({ turnos }) => {
     const interval = setInterval(() => {
       // Aquí realizas la consulta a la API para obtener los turnos actualizados
       fetchTurnos();
-    }, 5000); // Consulta cada 5 segundos
+    }, 500); // Consulta cada 5 segundos
 
     return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
   }, []);
@@ -46,12 +46,10 @@ const TurnoTableroUsuario: React.FC<TurnoTableroProps> = ({ turnos }) => {
       columns.push(
         <Col key={i} xl={3} lg={6} className="turno-tablero">
           <ul>
-            {columnTurnos.map(turno => (
+            {columnTurnos?.map(turno => (
               <li key={turno._id} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
                 {turno.codigo}
-                <button className="turno-tablero-btn">
                   {turno.atendido ? <i className="ri-checkbox-circle-line"></i> : <i className="ri-close-circle-line"></i>}
-                </button>
               </li>
             ))}
           </ul>
@@ -62,9 +60,9 @@ const TurnoTableroUsuario: React.FC<TurnoTableroProps> = ({ turnos }) => {
   };
 
   return (
-    <div className="card">
-    <div className="turno-tablero">
-      <h2>Tablero de Turnos</h2>
+    <div className="card turno-card-pantalla">
+      <div className="turno-tablero-pantalla">
+        <h2 className="header-title turno-title">Tablero de Turnos</h2>
       <Row>{renderColumns()}</Row>
     </div>
     </div>

@@ -58,10 +58,31 @@ io.on('connection', (socket) => {
   });
 });
 
-// Definir rutas
 app.get('/api/turnos', async (req, res) => {
   try {
-    const turnos = await Turno.find();
+    const { date } = req.query;
+
+    let startDate = new Date();
+    let endDate = new Date();
+
+    if (date) {
+      startDate = new Date(date);
+      endDate = new Date(date);
+    }
+
+    // Set start of the day
+    startDate.setHours(0, 0, 0, 0);
+
+    // Set end of the day
+    endDate.setHours(23, 59, 59, 999);
+
+    const turnos = await Turno.find({
+      fecha: {
+        $gte: startDate,
+        $lte: endDate,
+      },
+    });
+
     res.json(turnos);
   } catch (error) {
     res.status(500).send('Error fetching turnos');

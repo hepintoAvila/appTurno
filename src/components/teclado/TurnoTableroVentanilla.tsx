@@ -1,7 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import './TurnoTablero.css';
-import  playSound  from '../../common/helpers/playSound';
+import playSound from '../../common/helpers/playSound';
+
 interface Turno {
   codigo: string;
   identificacion: string;
@@ -12,14 +13,19 @@ interface Turno {
 
 interface TurnoTableroProps {
   turnos: Turno[];
-  onAtenderTurno: (turno: Turno) => void; // Cambiar a recibir Turno como parámetro
+  onAtenderTurno: (turno: Turno) => void;
   user: string | undefined;
 }
 
 const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ turnos, onAtenderTurno, user }) => {
   const handleAtenderClick = (turno: Turno) => {
     onAtenderTurno(turno);
-    playSound();
+
+    for (let i = 0; i < 2; i++) {
+      setTimeout(() => {
+        playSound();
+      }, i * 500); // Intervalo de 500ms entre cada reproducción
+    }
   };
 
   const renderColumns = () => {
@@ -32,6 +38,8 @@ const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ turnos, onAtender
             {columnTurnos.map(turno => (
               <li key={turno._id} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
                 Turno: {turno.codigo}
+                <br />
+                CC: {turno.identificacion}
                 {user === 'Ventanilla' && (
                   <button onClick={() => handleAtenderClick(turno)} disabled={turno.atendido}>
                     {turno.atendido ? <i className="ri-checkbox-circle-line"></i> : <i className="ri-close-circle-line"></i>}
@@ -48,7 +56,8 @@ const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ turnos, onAtender
 
   return (
     <div className="turno-tablero">
-      <h2>Tablero de Turnos</h2>
+      <h2>Turnos</h2>
+      <p className="header-title turno-title">AE - Atención Estudiantes, AEG - Certificados y Constancias de Egresados, CCE - Constancias y Certificados de Estudios.</p>
       <Row>{renderColumns()}</Row>
     </div>
   );

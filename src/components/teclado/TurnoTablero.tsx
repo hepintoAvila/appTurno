@@ -47,7 +47,7 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
           <ul>
             {columnTurnos.map(turno => (
               <li key={turno._id} className={turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'}>
-                {turno.codigo}
+                  {turno.codigo}
                   {turno.atendido ? <i className="ri-checkbox-circle-line"></i> : <i className="ri-close-circle-line"></i>}
               </li>
             ))}
