@@ -4,7 +4,7 @@ import './TurnoTablero.css';
 import  playSound  from '../../common/helpers/playSound';
 interface Turno {
   codigo: string;
-  numero: string;
+  identificacion: string;
   atendido: boolean;
   _id: string;
   __v: number;

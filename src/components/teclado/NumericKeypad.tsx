@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './NumericKeypad.css';
 import axios from 'axios';
 import { Col, Row } from 'react-bootstrap';
+import { useTurnoContext } from '@/common';
 interface NumericKeypadProps {
   onSubmit: (value: string) => void;
 }
@@ -13,7 +14,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
 
   const [display, setDisplay] = useState<string>('');
   const [opciones, setOpciones] = useState<Opcion[]>([]);
-  const [selectedOpcion, setSelectedOpcion] = useState('');
+  const {selectedOpcion,setSelectedOpcion} = useTurnoContext();
 
   const handleButtonClick = (value: number) => {
     setDisplay(prevDisplay => prevDisplay + value.toString());
@@ -31,7 +32,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ numero: display,opcion: selectedOpcion}),
+        body: JSON.stringify({ identificacion: display,opcion: selectedOpcion}),
       });
 
       if (!response.ok) {
@@ -66,7 +67,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
     <Col xl={6} lg={{ span: 6, order: 1 }}>
     <div className="numeric-keypad">
     <div className="options">
-        <h3>Motivo de la Atención</h3>
+
         <ul>
         {opciones?.map((opcion) => (
            <li key={opcion._id} className={'options-lista'}>

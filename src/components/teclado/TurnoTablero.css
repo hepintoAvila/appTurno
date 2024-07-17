@@ -1,8 +1,13 @@
 /* src/components/TurnoTablero.css */
+.turno-tablero-container {
+  margin-top: 63px;
+  width: max-content;
+  background-color: aquamarine;
+  }
+
 .turno-tablero {
   margin-top: 63px;
   width: max-content;
-
   }
   .turno-tablero-enable {
     text-overflow: ellipsis;
@@ -54,7 +59,7 @@
 .options {
   background-color: #d6f1e1;
   font-size: 1em;
-  padding: 0em 1em 1em 1em;
+  padding: 2em 1em 1em 1em;
   width: 28em;
   height: 23em;
   margin-right: 8em;

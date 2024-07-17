@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "669158a78eaeffa4172e6f88"
+  },
+  "opcion": "Atención Estudiantes"
+},
+{
+  "_id": {
+    "$oid": "669158ab8eaeffa4172e6f89"
+  },
+  "opcion": "Certificados y Constancias de Egresados"
+},
+{
+  "_id": {
+    "$oid": "669158af8eaeffa4172e6f8a"
+  },
+  "opcion": "Constancias y Certificados de Estudios"
+}]

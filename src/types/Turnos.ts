@@ -1,10 +1,10 @@
 export type Turno = {
-  numero?: string;
+  identificacion?: string;
   atendido: boolean;
 };
 
 export interface TurnoContextProps {
   turnos: Turno[];
-  handleTurnoSubmit: (numero: string) => void;
+  handleTurnoSubmit: (identificacion: string) => void;
   handleAtenderTurno: (index: number) => void;
 };

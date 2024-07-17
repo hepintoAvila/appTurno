@@ -4,7 +4,7 @@ import axios from 'axios';
 
 interface Turno {
   codigo: string;
-  numero: string;
+  identificacion: string;
   atendido: boolean;
   fecha: Date;
   _id: string;
@@ -13,7 +13,9 @@ interface Turno {
 
 interface TurnoContextProps {
   turnos: Turno[];
-  handleAtenderTurno: (turno: Turno) => void; // Cambiar a recibir Turno como parámetro
+  handleAtenderTurno: (turno: Turno) => void;
+  setSelectedOpcion: (selectedOpcion: string) => void;
+  selectedOpcion: string;
 
 }
 
@@ -29,7 +31,7 @@ export const useTurnoContext = () => {
 
 export const TurnoProvider: React.FC = ({ children }) => {
   const [turnos, setTurnos] = useState<Turno[]>([]);
-
+  const [selectedOpcion, setSelectedOpcion] = useState('');
   useEffect(() => {
     const socket = io('http://localhost:5000');
 
@@ -86,7 +88,7 @@ export const TurnoProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <TurnoContext.Provider value={{ turnos, handleAtenderTurno }}>
+    <TurnoContext.Provider value={{ turnos, handleAtenderTurno,selectedOpcion, setSelectedOpcion }}>
       {children}
     </TurnoContext.Provider>
   );

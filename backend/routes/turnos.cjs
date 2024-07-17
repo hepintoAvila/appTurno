@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 // Crear un nuevo turno
 router.post('/', async (req, res) => {
   const turno = new Turno({
-    numero: req.body.numero,
+    identificacion: req.body.identificacion,
     fecha: req.body.fecha || Date.now()
   });
 

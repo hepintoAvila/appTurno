@@ -69,17 +69,17 @@ app.get('/api/turnos', async (req, res) => {
 });
 // Ruta para guardar un nuevo turno
 app.post('/api/turnos', async (req, res) => {
-  const { numero,opcion } = req.body;
+  const { identificacion,opcion } = req.body;
 
-  if (!numero) {
+  if (!identificacion) {
     return res.status(400).json({ error: 'Número de turno requerido' });
   }
   if (!opcion) {
     return res.status(400).json({ error: 'Opcion requerido' });
   }
   try {
-    const codigo = await generarCodigoConsecutivo();
-    const nuevoTurno = new Turno({ codigo, numero,opcion });
+    const codigo = await generarCodigoConsecutivo(opcion);
+    const nuevoTurno = new Turno({ codigo, identificacion,opcion });
     await nuevoTurno.save();
 
     res.status(201).json(nuevoTurno);

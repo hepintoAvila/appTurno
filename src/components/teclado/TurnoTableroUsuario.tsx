@@ -4,7 +4,7 @@ import './TurnoTablero.css';
 
 interface Turno {
   codigo: string;
-  numero: string;
+  identificacion: string;
   atendido: boolean;
   _id: string;
   __v: number;
@@ -62,9 +62,11 @@ const TurnoTableroUsuario: React.FC<TurnoTableroProps> = ({ turnos }) => {
   };
 
   return (
+    <div className="card">
     <div className="turno-tablero">
       <h2>Tablero de Turnos</h2>
       <Row>{renderColumns()}</Row>
+    </div>
     </div>
   );
 };
