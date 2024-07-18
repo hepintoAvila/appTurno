@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
+import axios from 'axios'; // Asegúrate de tener axios instalado
 import './TurnoTablero.css';
 
 interface Turno {
@@ -18,25 +19,47 @@ interface TurnoTableroProps {
 
 const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
   const [visibleTurnos, setVisibleTurnos] = useState<Turno[]>([]);
+  const [updatedTurnos, setUpdatedTurnos] = useState<Turno[]>(turnos);
 
   // Filtrar turnos no atendidos
-  const turnosNoAtendidos = turnos.filter(turno => !turno.atendido);
+  const turnosNoAtendidos = updatedTurnos.filter(turno => !turno.atendido);
 
   // Cargar los primeros 25 turnos no atendidos
   const loadInitialTurnos = () => {
-    const initialTurnos = turnosNoAtendidos.slice(0, 20);
+    const initialTurnos = turnosNoAtendidos.slice(0, 40);
     setVisibleTurnos(initialTurnos);
   };
 
   // Cargar más turnos no atendidos
   const loadMoreTurnos = () => {
-    const additionalTurnos = turnosNoAtendidos.slice(visibleTurnos.length, visibleTurnos.length + 25);
+    const additionalTurnos = turnosNoAtendidos.slice(visibleTurnos.length, visibleTurnos.length + 40);
     setVisibleTurnos(prevTurnos => [...prevTurnos, ...additionalTurnos]);
   };
 
-  React.useEffect(() => {
+  // Obtener los turnos más recientes
+  const fetchTurnos = async () => {
+    try {
+      const response = await axios.get<Turno[]>('http://localhost:5000/api/turnos');
+      setUpdatedTurnos(response.data);
+    } catch (error) {
+      console.error('Error fetching turnos:', error);
+    }
+  };
+
+  // Configurar intervalo para actualización automática
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchTurnos();
+    }, 5000); // Actualizar cada 5 segundos
+
+    // Limpiar intervalo al desmontar el componente
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // Cargar los turnos iniciales cuando los turnos cambian
+  useEffect(() => {
     loadInitialTurnos();
-  }, [turnos]);
+  }, [updatedTurnos]); // Ejecutar solo cuando updatedTurnos cambie
 
   const renderColumns = () => {
     const columns = [];
@@ -72,3 +95,4 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
 };
 
 export default TurnoTablero;
+0

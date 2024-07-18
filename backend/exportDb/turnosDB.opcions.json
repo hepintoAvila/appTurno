@@ -2,23 +2,27 @@
   "_id": {
     "$oid": "669158a78eaeffa4172e6f88"
   },
-  "opcion": "1 - Atención Estudiantes"
+  "opcion": "1 - Atención Estudiantes",
+  "key": "1"
 },
 {
   "_id": {
     "$oid": "669158ab8eaeffa4172e6f89"
   },
-  "opcion": "2 - Certificados y Constancias de Egresados"
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "key": "2"
 },
 {
   "_id": {
     "$oid": "669158af8eaeffa4172e6f8a"
   },
-  "opcion": "3 - Constancias y Certificados de Estudios"
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "key": "3"
 },
 {
   "_id": {
     "$oid": "6699479e05f540adce48fd59"
   },
-  "opcion": "4 - Atención Proceso de Grados"
+  "opcion": "4 - Atención Proceso de Grados",
+  "key": "4"
 }]

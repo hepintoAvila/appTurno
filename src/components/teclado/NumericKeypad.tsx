@@ -10,24 +10,36 @@ interface NumericKeypadProps {
 
 interface Opcion {
   opcion: string;
+  key: string;
   _id: string;
 }
 
 const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
+
   const [display, setDisplay] = useState<string>('');
   const [opciones, setOpciones] = useState<Opcion[]>([]);
   const { selectedOpcion, setSelectedOpcion } = useTurnoContext();
+  const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
+  const [isNumericKeyPadActive, setIsNumericKeyPadActive] = useState<boolean>(true);
 
   const handleButtonClick = (value: number) => {
+    if (!isOptionSelected && value >= 1 && value <= 4) {
+      // Do nothing if an option is already selected and number is 1-4
+      return;
+    }
     setDisplay(prevDisplay => prevDisplay + value.toString());
   };
 
   const handleClear = () => {
     setDisplay('');
+    setSelectedOpcion('');
+    setIsOptionSelected(false);
+    setIsNumericKeyPadActive(true); // Re-enable numeric keypad on clear
   };
 
   const handleSubmit = async () => {
     try {
+      //console.log('Attempting to submit with:', { display, selectedOpcion });
       if (display && selectedOpcion) {
         const response = await fetch('http://localhost:5000/api/turnos', {
           method: 'POST',
@@ -43,7 +55,9 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
 
         setDisplay(''); // Limpia el display después de enviar el turno
         setSelectedOpcion('');
-        window.location.reload();
+        setIsOptionSelected(false);
+        setIsNumericKeyPadActive(true); // Re-enable numeric keypad after submission
+        //window.location.reload();
       } else {
         alert('Please select an option and enter a number');
       }
@@ -63,24 +77,48 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
       });
   }, []);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const key = event.key;
-      if (key >= '0' && key <= '9') {
-        handleButtonClick(parseInt(key));
-      } else if (key === 'Enter') {
+  const handleOptionSelect = (key: string) => {
+    const opcion = opciones.find(op => op.key === key);
+    if (opcion) {
+      setSelectedOpcion(opcion.opcion);
+      setIsOptionSelected(true);
+      setIsNumericKeyPadActive(false); // Disable numeric keypad after option select
+      //console.log('Option selected:', opcion.opcion);
+    } else {
+      alert('Invalid option selected');
+    }
+  };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    const key = event.key;
+    if (key >= '1' && key <= '4' && isNumericKeyPadActive) {
+      handleOptionSelect(key);
+    } else if (isOptionSelected && key >= '0' && key <= '9') {
+      handleButtonClick(parseInt(key));
+    } else if (key === 'Enter') {
+      if (!isOptionSelected) {
+        alert('Please select an option first');
+      } else if (display) {
         handleSubmit();
-      } else if (key === 'Backspace') {
-        handleClear();
+      } else {
+        alert('Please enter a number');
       }
-    };
+    } else if (key === 'Backspace') {
+      handleClear();
+    } else if (key >= '0' && key <= '9') {
+      // Check Num Lock status
+      if (event.getModifierState('NumLock')) {
+        alert('Please disable Num Lock to continue');
+      }
+    }
+  };
 
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [display, selectedOpcion]);
+  }, [opciones, selectedOpcion, isOptionSelected, display, isNumericKeyPadActive]);
 
   return (
     <>
@@ -92,9 +130,9 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
                 {opciones?.map((opcion) => (
                   <li key={opcion._id} className={'options-lista'}>
                     <button
-                      key={opcion._id}
-                      onClick={() => setSelectedOpcion(opcion.opcion)}
+                      onClick={() => handleOptionSelect(opcion.key)}
                       className={'options-lista'}
+                      disabled={!isNumericKeyPadActive} // Disable option buttons when numeric keypad is inactive
                     >
                       {opcion.opcion}
                     </button>

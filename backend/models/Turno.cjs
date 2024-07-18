@@ -14,9 +14,10 @@ const Turno = mongoose.model('Turno', turnoSchema);
 async function generarCodigoConsecutivo(opcion) {
 
   const prefixMap = {
-    'Atención Estudiantes': 'AE',
-    'Certificados y Constancias de Egresados': 'AEG',
-    'Constancias y Certificados de Estudios': 'CCE'
+    '1 - Atención Estudiantes': 'AE',
+    '2 - Certificados y Constancias de Egresados': 'AEG',
+    '3 - Constancias y Certificados de Estudios': 'CCE',
+    '4 - Atención Proceso de Grados': 'APG',
     // Agrega más opciones aquí si es necesario
   };
 
