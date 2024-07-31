@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './NumericKeypad.css';
 import axios from 'axios';
-import { Col, Row } from 'react-bootstrap';
+import config from '../../config';
+import { Col, Collapse, Row } from 'react-bootstrap';
 import { useTurnoContext } from '@/common';
 
 interface NumericKeypadProps {
@@ -21,10 +22,10 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
   const { selectedOpcion, setSelectedOpcion } = useTurnoContext();
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
   const [isNumericKeyPadActive, setIsNumericKeyPadActive] = useState<boolean>(true);
-
+  const [isOpen, toggle] = useState<boolean>(false);
+  const URL_SERVER = config.API_URL;
   const handleButtonClick = (value: number) => {
     if (!isOptionSelected && value >= 1 && value <= 4) {
-      // Do nothing if an option is already selected and number is 1-4
       return;
     }
     setDisplay(prevDisplay => prevDisplay + value.toString());
@@ -34,14 +35,17 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
     setDisplay('');
     setSelectedOpcion('');
     setIsOptionSelected(false);
-    setIsNumericKeyPadActive(true); // Re-enable numeric keypad on clear
+    setIsNumericKeyPadActive(true);
   };
-
   const handleSubmit = async () => {
     try {
-      //console.log('Attempting to submit with:', { display, selectedOpcion });
       if (display && selectedOpcion) {
-        const response = await fetch('http://localhost:5000/api/turnos', {
+        setDisplay('');
+        setSelectedOpcion('');
+        setIsOptionSelected(false);
+        setIsNumericKeyPadActive(true);
+        toggle(false);
+        const response = await fetch(`${URL_SERVER}/api/turnos`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,12 +56,6 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
         if (!response.ok) {
           throw new Error('Failed to submit turno');
         }
-
-        setDisplay(''); // Limpia el display después de enviar el turno
-        setSelectedOpcion('');
-        setIsOptionSelected(false);
-        setIsNumericKeyPadActive(true); // Re-enable numeric keypad after submission
-        //window.location.reload();
       } else {
         alert('Please select an option and enter a number');
       }
@@ -67,8 +65,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
   };
 
   useEffect(() => {
-    // Obtener las opciones de la API
-    axios.get('http://localhost:5000/api/opciones')
+    axios.get(`${URL_SERVER}/api/opciones`)
       .then((response) => {
         setOpciones(response.data);
       })
@@ -82,8 +79,8 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
     if (opcion) {
       setSelectedOpcion(opcion.opcion);
       setIsOptionSelected(true);
-      setIsNumericKeyPadActive(false); // Disable numeric keypad after option select
-      //console.log('Option selected:', opcion.opcion);
+      setIsNumericKeyPadActive(false);
+      toggle(true)
     } else {
       alert('Invalid option selected');
     }
@@ -106,7 +103,6 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
     } else if (key === 'Backspace') {
       handleClear();
     } else if (key >= '0' && key <= '9') {
-      // Check Num Lock status
       if (event.getModifierState('NumLock')) {
         alert('Please disable Num Lock to continue');
       }
@@ -114,9 +110,9 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown as EventListener);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown as EventListener);
     };
   }, [opciones, selectedOpcion, isOptionSelected, display, isNumericKeyPadActive]);
 
@@ -132,7 +128,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
                     <button
                       onClick={() => handleOptionSelect(opcion.key)}
                       className={'options-lista'}
-                      disabled={!isNumericKeyPadActive} // Disable option buttons when numeric keypad is inactive
+                      disabled={!isNumericKeyPadActive}
                     >
                       {opcion.opcion}
                     </button>
@@ -143,6 +139,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
           </div>
         </Col>
         <Col xl={6} lg={{ span: 6, order: 2 }}>
+        <Collapse in={isOpen}>
           <div className="numeric-keypad">
             <div className="display">{display}</div>
             <div className="keypad">
@@ -155,6 +152,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onSubmit }) => {
               <button onClick={handleSubmit}><li className={'teclado-enter ri-corner-down-right-line'}></li></button>
             </div>
           </div>
+          </Collapse>
         </Col>
       </Row>
     </>

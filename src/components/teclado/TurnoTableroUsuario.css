@@ -1,0 +1,71 @@
+.turno-grid-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.turno-grid-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.turno-grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #000;
+  width: 98%;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.turno-grid-item-estudiante {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #000;
+  width: 98%;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.turno-tablero-item  {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #000;
+  width: 98%;
+  font-size: 20px;
+}
+.turno-tablero-item-estudiante {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #000;
+  width: 177%;
+  font-size: 20px;
+}
+.turno-tablero-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid #000;
+  width: 98%;
+  font-size: 20px;
+}
+
+.turno-tablero-item.empty-slot {
+  visibility: hidden;
+}
+
+.parpadeando {
+  animation: parpadeo 1s infinite;
+}
+
+@keyframes parpadeo {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}

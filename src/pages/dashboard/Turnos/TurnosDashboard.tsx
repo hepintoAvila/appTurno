@@ -1,77 +1,92 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { TurnoSolicitud, TurnoTablero } from '@/components/teclado';
+import { TurnoSolicitud } from '@/components/teclado';
 import { useTurnoContext } from '@/common';
 import TurnoTableroUsuario from '@/components/teclado/TurnoTableroUsuario';
 import TurnoTableroVentanilla from '@/components/teclado/TurnoTableroVentanilla';
 
-const TurnosDashboard = () => {
-  const { handleAtenderTurno, turnos } = useTurnoContext();
-  const [user, setUser] = useState<{ username?: string }>(
-    localStorage.getItem('_HYPER_AUTH')
-      ? JSON.parse(localStorage.getItem('_HYPER_AUTH') || '{}')
-      : {}
-  );
+interface User {
+  id: string;
+  email: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  identificacion: number;
+  role: 'Teclado' | 'Pantalla' | 'Ventanilla'; // Definir roles de forma específica
+  turno: string;
+  token: string;
+}
+interface Turno {
+  codigo: string;
+  identificacion: string;
+  atendido: boolean;
+  _id: string;
+  __v: number;
+  fecha: string;
+}
+
+ 
+interface TurnoDashbProps {
+  usuarios: User[];
+}
+
+const TurnosDashboard: React.FC<TurnoDashbProps> = ({ usuarios }) => {
+  const { handleAtenderTurno } = useTurnoContext();
+  const [turnos, setTurnos] = useState<Turno[]>([]);
+  const [user, setUser] = useState<User | null>(null); // Inicializar con null o un valor inicial adecuado
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('_HYPER_AUTH');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setTurnos(turnos)
+    }
+  }, []); // [] como dependencia para ejecutar solo una vez al montar el componente
 
   return (
     <>
-      {(() => {
-        switch (user?.username) {
-          case 'Teclado':
-            return (
-              <Row>
-                <Col xl={6} lg={{ span: 6, order: 1 }}>
-                  <TurnoSolicitud />
-                </Col>
-                <Col xl={6} lg={{ span: 6, order: 1 }}>
-                  <TurnoTablero
-                    turnos={turnos}
-                    user={user?.username}
-                  />
-                </Col>
-              </Row>
-            );
+      {user?.role === 'Teclado' && (
+        <Row>
+          <Col xl={6} lg={{ span: 6, order: 1 }}>
+            <TurnoSolicitud />
+          </Col>
+          <Col xl={6} lg={{ span: 6, order: 1 }}>
+            <TurnoTableroUsuario turnos={turnos}/>
+          </Col>
+        </Row>
+      )}
 
-          case 'Pantalla':
-            return (
-              <Row>
-                <Col xl={3} lg={{ span: 6, order: 1 }}>
-                  <TurnoTableroUsuario
-                    turnos={turnos}
-                  />
-                </Col>
-                <Col xl={6} lg={{ span: 6, order: 1 }}>
-                  {' '}
-                </Col>
-                <Col xl={3} lg={{ span: 6, order: 3 }}>
-                  {' '}
-                </Col>
-              </Row>
-            );
+      {user?.role === 'Pantalla' && (
+        <Row>
+          <Col xl={3} lg={{ span: 6, order: 1 }}>
+            <TurnoTableroUsuario turnos={turnos} />
+          </Col>
+          <Col xl={6} lg={{ span: 6, order: 1 }}>
+            {/* Contenido de la pantalla */}
+          </Col>
+          <Col xl={3} lg={{ span: 6, order: 3 }}>
+            {/* Otro contenido */}
+          </Col>
+        </Row>
+      )}
 
-          case 'Ventanilla':
-            return (
-              <Row>
-                <Col xl={3} lg={{ span: 6, order: 1 }}>
-                  <TurnoTableroVentanilla
-                    turnos={turnos}
-                    onAtenderTurno={handleAtenderTurno}
-                    user={user?.username}
-                  />
-                </Col>
-                <Col xl={6} lg={{ span: 6, order: 1 }}>
-                  {' '}
-                </Col>
-                <Col xl={3} lg={{ span: 6, order: 3 }}>
-                  {' '}
-                </Col>
-              </Row>
-            );
-
-          default:
-            return <></>;
-        }
-      })()}
+      {user?.role === 'Ventanilla' && (
+        <Row>
+          <Col xl={3} lg={{ span: 6, order: 1 }}>
+            <TurnoTableroVentanilla
+              onAtenderTurno={handleAtenderTurno}
+              tipoTurno={user.turno} // Asegúrate de pasar el valor correcto de user.turno
+            />
+          </Col>
+          <Col xl={6} lg={{ span: 6, order: 1 }}>
+            {/* Contenido de la ventanilla */}
+          </Col>
+          <Col xl={3} lg={{ span: 6, order: 3 }}>
+            {/* Otro contenido */}
+          </Col>
+        </Row>
+      )}
     </>
   );
 };

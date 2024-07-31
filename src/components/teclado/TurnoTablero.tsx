@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios'; // Asegúrate de tener axios instalado
 import './TurnoTablero.css';
-
+import config from '../../config';
 interface Turno {
   codigo: string;
   identificacion: string;
@@ -18,6 +18,7 @@ interface TurnoTableroProps {
 }
 
 const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
+  const URL_SERVER = config.API_URL;
   const [visibleTurnos, setVisibleTurnos] = useState<Turno[]>([]);
   const [updatedTurnos, setUpdatedTurnos] = useState<Turno[]>(turnos);
 
@@ -39,7 +40,7 @@ const TurnoTablero: React.FC<TurnoTableroProps> = ({ turnos, user }) => {
   // Obtener los turnos más recientes
   const fetchTurnos = async () => {
     try {
-      const response = await axios.get<Turno[]>('http://localhost:5000/api/turnos');
+      const response = await axios.get<Turno[]>(`${URL_SERVER}/api/turnos`);
       setUpdatedTurnos(response.data);
     } catch (error) {
       console.error('Error fetching turnos:', error);

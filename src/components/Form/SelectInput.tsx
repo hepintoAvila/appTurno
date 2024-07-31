@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { Form } from 'react-bootstrap';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
 
@@ -50,10 +50,14 @@ const SelectInput = ({
 						onChange={(e) => {
 							field.onChange(e.target.value);
 						}}
-						placeholder={placeholder}
 						className={className}
 						isInvalid={Boolean(fieldState.error?.message)}
 					>
+						{placeholder && (
+							<option value="" disabled>
+								{placeholder}
+							</option>
+						)}
 						{children}
 					</Form.Select>
 					{helpText && (

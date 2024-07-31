@@ -9,14 +9,15 @@ const TurnoSolicitud: React.FC = () => {
 
   return (
     <Row>
-    <Col xl={3}  lg={{ span: 6, order: 1 }}>
-    </Col>
-    <Col xl={6} lg={{ span: 6, order: 2 }}>
+     <Col xl={12} lg={{ span: 6, order: 2 }}>
     <div className="turno-solicitud">
-    <div className={selectedOpcion ? 'turno-solicitud-opciones turno-tablero-enable' : 'turno-solicitud-opciones turno-tablero-disable'}>
+      <div className={selectedOpcion ? 'turno-solicitud-opciones turno-tablero-enable' : 'turno-solicitud-opciones turno-tablero-disable'}>
         {selectedOpcion ? <i className="ri-checkbox-circle-line"><span>{selectedOpcion}</span></i> : <i className="ri-close-circle-line"><span>Motivo de la Solicitud para el Turno: </span></i>}
       </div>
       <NumericKeypad onSubmit={handleAtenderTurno} />
+      <div className={selectedOpcion ? 'turno-solicitud-opciones turno-tablero-enable' : 'turno-solicitud-opciones turno-tablero-disable'}>
+        {selectedOpcion ? <i className="ri-checkbox-circle-line"><span>   POR FAVOR, DIGITE SU NUMERO DE IDENTIFICACIÓN</span></i> : ''}
+      </div>
     </div>
     </Col>
   </Row>

@@ -16,7 +16,6 @@ interface TurnoContextProps {
   handleAtenderTurno: (turno: Turno) => void;
   setSelectedOpcion: (selectedOpcion: string) => void;
   selectedOpcion: string;
-
 }
 
 const TurnoContext = createContext<TurnoContextProps | undefined>(undefined);
@@ -29,71 +28,70 @@ export const useTurnoContext = () => {
   return context;
 };
 
-export const TurnoProvider: React.FC = ({ children }) => {
+export const TurnoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [turnos, setTurnos] = useState<Turno[]>([]);
   const [selectedOpcion, setSelectedOpcion] = useState('');
 
-useEffect(() => {
-  const socket = io('http://localhost:5000');
+  useEffect(() => {
+    const socket = io('http://192.168.7.61:5000');
 
-  socket.on('turnoAtendido', (data: Turno) => {
-    console.log('Turno atendido recibido:', data); // Verifica el evento recibido
-    setTurnos(prevTurnos =>
-      prevTurnos.map(turno =>
-        turno._id === data._id ? { ...turno, atendido: true } : turno
-      )
-    );
-  });
-
-  return () => {
-    socket.disconnect();
-  };
-}, []);
-
-useEffect(() => {
-  axios.get<Turno[]>('http://localhost:5000/api/turnos')
-    .then(response => {
-      console.log('Fetched turnos:', response.data); // Verifica los turnos recibidos
-      setTurnos(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching turnos:', error);
-    });
-}, []);
-
-const handleAtenderTurno = async (turno: Turno) => {
-  try {
-    // Actualiza el estado localmente
-    const updatedTurnos = turnos?.map(t =>
-      t._id === turno._id ? { ...t, atendido: true } : t
-    );
-    console.log('Updated turnos locally:', updatedTurnos); // Verifica actualización local
-    setTurnos(updatedTurnos);
-
-    // Actualiza en la base de datos
-    const response = await fetch(`http://localhost:5000/api/turnos/${turno._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    socket.on('turnoAtendido', (data: Turno) => {
+      console.log('Turno atendido recibido:', data); // Verifica el evento recibido
+      setTurnos(prevTurnos =>
+        prevTurnos.map(turno =>
+          turno._id === data._id ? { ...turno, atendido: true } : turno
+        )
+      );
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to update turno');
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    axios.get<Turno[]>('http://192.168.7.61:5000/api/turnos')
+      .then(response => {
+        //console.log('Fetched turnos:', response.data); // Verifica los turnos recibidos
+        setTurnos(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching turnos:', error);
+      });
+  }, []);
+
+  const handleAtenderTurno = async (turno: Turno) => {
+    try {
+      // Actualiza el estado localmente
+      const updatedTurnos = turnos?.map(t =>
+        t._id === turno._id ? { ...t, atendido: true } : t
+      );
+      console.log('Updated turnos locally:', updatedTurnos); // Verifica actualización local
+      setTurnos(updatedTurnos);
+
+      // Actualiza en la base de datos
+      const response = await fetch(`http://192.168.7.61:5000/api/turnos/${turno._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update turno');
+      }
+
+      // Emitir evento a través de Socket.io
+      const socket = io('http://192.168.7.61:5000');
+      socket.emit('turnoAtendido', turno);
+      socket.disconnect();
+    } catch (error) {
+      console.error('Error updating turno:', error);
     }
-
-    // Emitir evento a través de Socket.io
-    const socket = io('http://localhost:5000');
-    socket.emit('turnoAtendido', turno);
-    socket.disconnect();
-  } catch (error) {
-    console.error('Error updating turno:', error);
-  }
-};
-
+  };
 
   return (
-    <TurnoContext.Provider value={{ turnos, handleAtenderTurno,selectedOpcion, setSelectedOpcion }}>
+    <TurnoContext.Provider value={{ turnos, handleAtenderTurno, selectedOpcion, setSelectedOpcion }}>
       {children}
     </TurnoContext.Provider>
   );

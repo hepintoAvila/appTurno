@@ -1,0 +1,598 @@
+[{
+  "_id": {
+    "$oid": "6699362e772a8779ffa765a0"
+  },
+  "codigo": "AE-0001",
+  "identificacion": "470851",
+  "atendido": true,
+  "opcion": "Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-22T15:35:10.980Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669937cd772a8779ffa765a7"
+  },
+  "codigo": "AE-0002",
+  "identificacion": "7702720",
+  "atendido": true,
+  "opcion": "Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-22T15:42:05.269Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669937db772a8779ffa765ad"
+  },
+  "codigo": "AE-0003",
+  "identificacion": "85237",
+  "atendido": false,
+  "opcion": "Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-18T15:42:19.556Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66993900c67e9bbff95b325d"
+  },
+  "codigo": "APG-0001",
+  "identificacion": "25555",
+  "atendido": false,
+  "opcion": "Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-18T15:47:12.221Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669939c9c67e9bbff95b3265"
+  },
+  "codigo": "AEG-0001",
+  "identificacion": "55555665565",
+  "atendido": true,
+  "opcion": "Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-18T15:50:33.043Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a66efe599564c7860f4f8"
+  },
+  "codigo": "APG-0001",
+  "identificacion": "52566565",
+  "atendido": true,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-19T13:15:27.295Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a67dce599564c7860f6a8"
+  },
+  "codigo": "AEG-0001",
+  "identificacion": "356556565",
+  "atendido": true,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-19T13:19:24.995Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a6974e599564c7860f9db"
+  },
+  "codigo": "AE-0001",
+  "identificacion": "525666",
+  "atendido": true,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-19T13:26:12.706Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a6c30e599564c7860fd74"
+  },
+  "codigo": "CCE-0001",
+  "identificacion": "658455545",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-19T13:37:52.035Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a6c45e599564c7860fda1"
+  },
+  "codigo": "AE-0002",
+  "identificacion": "65566565",
+  "atendido": true,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-19T13:38:13.038Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a83ceaded0ee0fe2baa14"
+  },
+  "codigo": "AEG-0002",
+  "identificacion": "6256565656",
+  "atendido": true,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-19T15:18:38.360Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a83d6aded0ee0fe2baa19"
+  },
+  "codigo": "CCE-0002",
+  "identificacion": "656556444",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-19T15:18:46.494Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a83e0aded0ee0fe2baa1e"
+  },
+  "codigo": "AE-0003",
+  "identificacion": "65654454545",
+  "atendido": true,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-19T15:18:56.223Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a83e9aded0ee0fe2baa23"
+  },
+  "codigo": "AEG-0003",
+  "identificacion": "65656565645",
+  "atendido": true,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-19T15:19:05.893Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a83f9aded0ee0fe2baa29"
+  },
+  "codigo": "CCE-0003",
+  "identificacion": "777778877",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-19T15:19:21.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a840baded0ee0fe2baa30"
+  },
+  "codigo": "CCE-0004",
+  "identificacion": "56565656",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-19T15:19:39.268Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a8619aded0ee0fe2baaa5"
+  },
+  "codigo": "AE-0004",
+  "identificacion": "658555555",
+  "atendido": true,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-19T15:28:25.574Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a8622aded0ee0fe2baaaa"
+  },
+  "codigo": "AEG-0004",
+  "identificacion": "658424454",
+  "atendido": true,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-19T15:28:34.278Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a9e80e4ffe4500b17988b"
+  },
+  "codigo": "AE-0005",
+  "identificacion": "658547",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-19T17:12:32.525Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a9eade4ffe4500b179897"
+  },
+  "codigo": "AE-0006",
+  "identificacion": "96666555",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-19T17:13:17.568Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669a9effe4ffe4500b1798aa"
+  },
+  "codigo": "AEG-0005",
+  "identificacion": "659823",
+  "atendido": false,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-19T17:14:39.510Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e6961a5df1b4a59ef0b61"
+  },
+  "codigo": "AEG-0006",
+  "identificacion": "354687",
+  "atendido": true,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-22T14:14:57.347Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e6a49a5df1b4a59ef0b9c"
+  },
+  "codigo": "CCE-0005",
+  "identificacion": "65847",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-22T14:18:49.578Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e6e46a5df1b4a59ef0c82"
+  },
+  "codigo": "CCE-0006",
+  "identificacion": "65234",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-22T14:35:50.375Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e6f8aa5df1b4a59ef0cc8"
+  },
+  "codigo": "AEG-0007",
+  "identificacion": "354788",
+  "atendido": true,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-22T14:41:14.379Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e828ca5df1b4a59ef1096"
+  },
+  "codigo": "CCE-0007",
+  "identificacion": "6545212555",
+  "atendido": true,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-22T16:02:20.260Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e82c1a5df1b4a59ef10a4"
+  },
+  "codigo": "AE-0007",
+  "identificacion": "5325478",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-22T16:03:13.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8568a5df1b4a59ef1130"
+  },
+  "codigo": "APG-0002",
+  "identificacion": "65485",
+  "atendido": true,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:14:32.097Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8571a5df1b4a59ef1135"
+  },
+  "codigo": "APG-0003",
+  "identificacion": "685",
+  "atendido": true,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:14:41.216Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e881ca5df1b4a59ef11c5"
+  },
+  "codigo": "CCE-0008",
+  "identificacion": "6524575",
+  "atendido": false,
+  "opcion": "3 - Constancias y Certificados de Estudios",
+  "fecha": {
+    "$date": "2024-07-22T16:26:04.962Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8f0da5df1b4a59ef1350"
+  },
+  "codigo": "APG-0004",
+  "identificacion": "32154",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:55:41.580Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8f15a5df1b4a59ef1356"
+  },
+  "codigo": "APG-0005",
+  "identificacion": "35748",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:55:49.691Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8f22a5df1b4a59ef135f"
+  },
+  "codigo": "APG-0006",
+  "identificacion": "36584",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:56:02.283Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8fa1a5df1b4a59ef1394"
+  },
+  "codigo": "APG-0007",
+  "identificacion": "3254",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:58:09.267Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8fa5a5df1b4a59ef1399"
+  },
+  "codigo": "APG-0008",
+  "identificacion": "6598",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:58:13.013Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669e8fa9a5df1b4a59ef139e"
+  },
+  "codigo": "APG-0009",
+  "identificacion": "78546",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-22T16:58:17.858Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fad58764911feefcc2055"
+  },
+  "codigo": "AE-0008",
+  "identificacion": "15171732",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-23T13:17:12.730Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fad82764911feefcc2068"
+  },
+  "codigo": "AEG-0008",
+  "identificacion": "35146",
+  "atendido": false,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-23T13:17:54.911Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fad8a764911feefcc2070"
+  },
+  "codigo": "AE-0009",
+  "identificacion": "65222",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-23T13:18:02.024Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fb1f4764911feefcc2255"
+  },
+  "codigo": "AE-0010",
+  "identificacion": "652432",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-23T13:36:52.558Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fb201764911feefcc225e"
+  },
+  "codigo": "AEG-0009",
+  "identificacion": "653245588",
+  "atendido": false,
+  "opcion": "2 - Certificados y Constancias de Egresados",
+  "fecha": {
+    "$date": "2024-07-23T13:37:05.469Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fb216764911feefcc226a"
+  },
+  "codigo": "APG-0010",
+  "identificacion": "6352418",
+  "atendido": true,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-23T13:37:26.037Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fb5df764911feefcc2460"
+  },
+  "codigo": "APG-0011",
+  "identificacion": "77027207",
+  "atendido": true,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-23T13:53:35.039Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fb600764911feefcc247d"
+  },
+  "codigo": "APG-0012",
+  "identificacion": "3524",
+  "atendido": true,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-23T13:54:08.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fb61b764911feefcc2498"
+  },
+  "codigo": "APG-0013",
+  "identificacion": "36254777777",
+  "atendido": false,
+  "opcion": "4 - Atención Proceso de Grados",
+  "fecha": {
+    "$date": "2024-07-23T13:54:35.758Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669fbb89764911feefcc289d"
+  },
+  "codigo": "AE-0011",
+  "identificacion": "362",
+  "atendido": false,
+  "opcion": "1 - Atención Estudiantes",
+  "fecha": {
+    "$date": "2024-07-23T14:17:45.567Z"
+  },
+  "__v": 0
+}]

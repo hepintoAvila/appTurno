@@ -5,10 +5,30 @@
   background-color: aquamarine;
   }
 
-.turno-tablero {
+.turno-tablero,.ventanilla {
   margin-top: 63px;
   width: max-content;
   }
+  .ventanilla {
+    margin-top: 63px;
+    width: max-content;
+    }
+ .columna-atendidos{
+  margin-left: 2em;
+  margin-top: 0em;
+ }
+ .ventanilla-enable {
+  text-overflow: ellipsis;
+  font-size: 18px;
+  color: aliceblue;
+  background-color: rgb(22, 147, 11);
+}
+.ventanilla-disable {
+  text-overflow: ellipsis;
+  font-size: 18px;
+  color: aliceblue;
+  background-color: brown;
+}
   .turno-tablero-enable {
     text-overflow: ellipsis;
     font-size: 18px;
@@ -21,16 +41,24 @@
     color: aliceblue;
     background-color: brown;
   }
+
+  
+  .ventanilla h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
   .turno-tablero h2 {
     font-size: 24px;
     margin-bottom: 10px;
   }
-
   .turno-tablero ul {
     list-style: none;
     padding: 0;
   }
-
+  .ventanilla ul {
+    list-style: none;
+    padding: 0;
+  }
   .turno-tablero li {
     display: flex;
     justify-content: space-between;
@@ -38,10 +66,43 @@
     padding: 10px;
     border: 1px solid #000;
     margin-bottom: 5px;
+    width: 16em;
+    font-size: 42px;
   }
-
+  .ventanilla li {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    padding: 6px;
+    border: 1px solid #000;
+    margin-bottom: 6px;
+    width: 11em;
+    font-size: 23px;
+  }
+  .ventanilla-rows{
+    padding: 0em 1em 0em 6em;
+    margin-top: -4em;
+    background-color: #d6f1e1;
+    
+  }
+  .ventanilla li.atendido {
+    background-color: #ffffff;
+  }
   .turno-tablero li.atendido {
     background-color: #ffffff;
+  }
+
+  .ventanilla button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background:transparent;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    shape-outside: circle();
+    clip-path: circle();
+    color: rgb(243, 243, 243);
+    float: left;
   }
 
   .turno-tablero button {
@@ -69,12 +130,21 @@
   margin-bottom: 21px;
   margin-top: 1em;
   padding: 1em;
-  width: 90em;
-  margin-left: 16em;
+  margin-left: -4em;
+  width: 53em;
 }
 .turno-tablero-pantalla{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+}
+
+.turno-tablero-item.parpadeando {
+  animation: parpadeo 1s infinite !important;
+}
+
+@keyframes parpadeo {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: green; }
 }
