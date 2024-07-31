@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import './TurnoTablero.css';
-import playSound from '../../common/helpers/playSound';
 import config from '../../config';
 
 interface Turno {
@@ -57,7 +56,7 @@ const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ onAtenderTurno, t
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...turno, atendido: true }),
+        body: JSON.stringify({ ...turno, atendido: true, codigo:turno.codigo,identificacion:turno.identificacion}),
       });
 
       if (!response.ok) {
@@ -72,16 +71,8 @@ const TurnoTableroVentanilla: React.FC<TurnoTableroProps> = ({ onAtenderTurno, t
   };
   const handleAtenderClick = async (turno: Turno) => {
     onAtenderTurno(turno);
-
-    for (let i = 0; i < 2; i++) {
-      setTimeout(() => {
-        playSound();
-      }, i * 500); // Intervalo de 500ms entre cada reproducción
-    }
-
     // Update the turno in the database
     await updateTurnoAtendido(turno);
-
     setTurnos(prevTurnos =>
       prevTurnos.map(t => (t._id === turno._id ? { ...t, atendido: true } : t))
     );

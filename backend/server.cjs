@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const { Server } = require('socket.io');
 const http = require('http');
 const path = require('path');
+const fs = require('fs');
 
 
 const bodyParser = require('body-parser');
@@ -35,6 +36,30 @@ function printText(textToPrint) {
     });
   });
 }
+const convertTextToSpeech = (text, callback) => {
+  // Ruta al script Python
+  const pythonScriptPathSpeech = path.join(__dirname, 'text_to_speech.py');
+  const command = `python ${pythonScriptPathSpeech} "${text}"`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error ejecutando el script Python: ${error.message}`);
+      return callback(error);
+    }
+    if (stderr) {
+      console.error(`Error en el script Python: ${stderr}`);
+      return callback(new Error(stderr));
+    }
+
+    // Procesar el archivo de audio generado
+    const audioFile = path.join(__dirname, 'output.mp3');
+    if (fs.existsSync(audioFile)) {
+      callback(null, audioFile);
+    } else {
+      callback(new Error('Archivo de audio no encontrado.'));
+    }
+  });
+};
 // Configurar dotenv para cargar variables de entorno
 dotenv.config();
 
@@ -123,7 +148,7 @@ app.get('/api/turnos', async (req, res) => {
 
 // Ruta para guardar un nuevo turno
 app.post('/api/turnos', async (req, res) => {
-  const { identificacion, opcion,date } = req.body;
+  const { identificacion, opcion } = req.body;
 
   if (!identificacion) {
     return res.status(400).json({ error: 'Número de turno requerido' });
@@ -163,6 +188,7 @@ app.post('/api/turnos', async (req, res) => {
 // Ruta para actualizar el campo 'atendido'
 app.put('/api/turnos/:id', async (req, res) => {
   try {
+
     const turno = await Turno.findByIdAndUpdate(
       req.params.id,
       { atendido: true },
@@ -174,10 +200,17 @@ app.put('/api/turnos/:id', async (req, res) => {
 
     // Emitir evento para notificar a los clientes
     io.emit('turnoAtendido', turno);
-
-    // Reproducir sonido en el servidor
-    player.play('/beep.mp3', (err) => {
-      if (err) console.error('Error playing sound:', err);
+    const { codigo, identificacion } = req.body;
+    const textToPrint = `Turno:${codigo}, Identificacion: ${identificacion}`;
+    convertTextToSpeech(textToPrint, (err, audioFile) => {
+      if (err) {
+        console.error('Error en la conversión de texto a voz:', err);
+      } else {
+        console.log('Archivo de audio generado:', audioFile);
+        player.play(audioFile, (err) => {
+          if (err) console.error('Error playing sound:', err);
+        });
+      }
     });
 
     res.send(turno);
