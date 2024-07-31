@@ -15,7 +15,7 @@ const turnoRoutes = require('./routes/turnoRoutes.cjs');
 const opcionesRouter = require('./routes/opciones.cjs');
 const player = require('play-sound')(opts = {}); // Paquete para reproducir sonido
 // Ruta del script Python
-const pythonScriptPath = path.join(__dirname, 'print_test.py');
+const pythonScriptPath = path.join(__dirname, 'print.py');
 
 // Función para imprimir texto
 function printText(textToPrint) {

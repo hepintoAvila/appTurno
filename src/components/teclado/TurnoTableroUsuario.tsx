@@ -106,7 +106,6 @@ const TurnoTableroUsuario: React.FC<TurnoTableroProps> = () => {
             {turno ? (
               <div className={`turno-tablero-item ${turno.atendido ? 'turno-tablero-enable' : 'turno-tablero-disable'} ${parpadeandoTurnos.has(turno._id) ? 'parpadeando' : ''}`}>
                 {turno.codigo}
-                {turno.atendido ? <i className="ri-checkbox-circle-line"></i> : <i className="ri-close-circle-line"></i>}
               </div>
             ) : (
               <div className="turno-tablero-item empty-slot"></div>
