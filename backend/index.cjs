@@ -133,11 +133,6 @@ async function processQueue() {
   }
 }
 
-// Ejemplo de uso
-
-
-
-
 // Configurar dotenv para cargar variables de entorno
 dotenv.config();
 
