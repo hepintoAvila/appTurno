@@ -99,6 +99,17 @@ export default function configureFakeBackend() {
 			role: 'Ventanilla',
 			turno:'APG',
 			token: TOKEN,
+		},{
+			id: 3,
+			email: 'pantalla@unicesar.edu.co',
+			username: 'Pantalla',
+			password: 'pantalla',
+			firstName: 'pantalla',
+			lastName: 'pantalla',
+			identificacion:1234567,
+			role: 'Pantalla',
+			turno:'APG',
+			token: TOKEN,
 		},
 	];
 

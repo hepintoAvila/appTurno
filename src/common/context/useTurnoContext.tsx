@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
-
+import config from '../../config';
 interface Turno {
   codigo: string;
   identificacion: string;
@@ -19,7 +19,7 @@ interface TurnoContextProps {
 }
 
 const TurnoContext = createContext<TurnoContextProps | undefined>(undefined);
-
+const URL_SERVER = config.API_URL;
 export const useTurnoContext = () => {
   const context = useContext(TurnoContext);
   if (!context) {
@@ -33,7 +33,7 @@ export const TurnoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [selectedOpcion, setSelectedOpcion] = useState('');
 
   useEffect(() => {
-    const socket = io('http://192.168.7.61:5000');
+    const socket = io(`${URL_SERVER}`);
 
     socket.on('turnoAtendido', (data: Turno) => {
       console.log('Turno atendido recibido:', data); // Verifica el evento recibido
@@ -50,7 +50,7 @@ export const TurnoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   useEffect(() => {
-    axios.get<Turno[]>('http://192.168.7.61:5000/api/turnos')
+    axios.get<Turno[]>(`${URL_SERVER}/api/turnos`)
       .then(response => {
         //console.log('Fetched turnos:', response.data); // Verifica los turnos recibidos
         setTurnos(response.data);
@@ -70,7 +70,7 @@ export const TurnoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       setTurnos(updatedTurnos);
 
       // Actualiza en la base de datos
-      const response = await fetch(`http://192.168.7.61:5000/api/turnos/${turno._id}`, {
+      const response = await fetch(`${URL_SERVER}/api/turnos/${turno._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ export const TurnoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
 
       // Emitir evento a través de Socket.io
-      const socket = io('http://192.168.7.61:5000');
+      const socket = io(`${URL_SERVER}`);
       socket.emit('turnoAtendido', turno);
       socket.disconnect();
     } catch (error) {

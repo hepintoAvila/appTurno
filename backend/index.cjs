@@ -9,11 +9,33 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
-
 const bodyParser = require('body-parser');
 const { Turno, generarCodigoConsecutivo } = require('./models/Turno.cjs'); // Ajusta la ruta según sea necesario
 const turnoRoutes = require('./routes/turnoRoutes.cjs');
 const opcionesRouter = require('./routes/opciones.cjs');
+const printQueue = [];
+let isPrinting = false;
+
+const enqueuePrintJob = (job) => {
+  printQueue.push(job);
+  processPrintQueue();
+};
+
+const processPrintQueue = async () => {
+  if (isPrinting || printQueue.length === 0) return;
+
+  isPrinting = true;
+  const job = printQueue.shift(); // Retira el primer trabajo de la cola
+  if (job) {
+    try {
+      await job();
+    } catch (error) {
+      console.error("Error al procesar la cola de impresión:", error);
+    }
+  }
+  isPrinting = false;
+  processPrintQueue(); // Procesa la siguiente tarea en la cola
+};
 const player = require('play-sound')(opts = {}); // Paquete para reproducir sonido
 // Ruta del script Python
 const pythonScriptPath = path.join(__dirname, 'print.py');
@@ -60,6 +82,62 @@ const convertTextToSpeech = (text, callback) => {
     }
   });
 };
+
+
+const redis = require('@redis/client');
+const client = redis.createClient({
+  host: 'localhost',
+  port: 6379,
+});
+
+client.on('error', (err) => {
+  console.error('Redis Client Error', err);
+});
+
+// Conectar al cliente
+client.connect().catch(console.error);
+
+async function enqueueAudioFile(audioFile) {
+  try {
+    // Agregar el archivo de audio a la cola
+    const reply = await client.rPush('audioQueue', audioFile);
+    console.log('Audio agregado a la cola:', reply);
+
+    // Procesar la cola (puedes mover esto a otra función si prefieres)
+    await processQueue();
+  } catch (err) {
+    console.error('Error al agregar el audio a la cola:', err);
+  }
+}
+
+async function processQueue() {
+  try {
+    // Obtener el archivo de audio de la cola
+    const audioFile = await client.lPop('audioQueue');
+    if (audioFile) {
+      // Aquí puedes reproducir el audio o hacer lo que necesites con él
+      player.play(audioFile, (err) => {
+        if (err) {
+          console.error('Error al reproducir el audio:', err);
+        } else {
+          console.log('Reproducción de audio completa');
+        }
+      });
+
+      console.log('Procesando archivo de audio:', audioFile);
+    } else {
+      console.log('No hay más archivos en la cola');
+    }
+  } catch (err) {
+    console.error('Error al obtener el audio de la cola:', err);
+  }
+}
+
+// Ejemplo de uso
+
+
+
+
 // Configurar dotenv para cargar variables de entorno
 dotenv.config();
 
@@ -111,9 +189,6 @@ io.on('connection', (socket) => {
   });
 });
 
-
-
-
 app.get('/api/turnos', async (req, res) => {
   try {
     const { date } = req.query;
@@ -156,6 +231,7 @@ app.post('/api/turnos', async (req, res) => {
   if (!opcion) {
     return res.status(400).json({ error: 'Opcion requerido' });
   }
+
   try {
     const codigo = await generarCodigoConsecutivo(opcion);
     const nuevoTurno = new Turno({ codigo, identificacion, opcion });
@@ -164,19 +240,26 @@ app.post('/api/turnos', async (req, res) => {
     // Notificar a todos los clientes sobre el nuevo turno
     io.emit('nuevoTurno', nuevoTurno);
 
-    // Imprimir el turno
-    const turno = {
-      codigo: nuevoTurno.codigo,
-      identificacion: nuevoTurno.identificacion,
-      opcion: nuevoTurno.opcion,
-      fecha: new Date()
-    };
+    // Crear la tarea de impresión y agregarla a la cola
+    enqueuePrintJob(async () => {
+      const turno = {
+        codigo: nuevoTurno.codigo,
+        identificacion: nuevoTurno.identificacion,
+        opcion: nuevoTurno.opcion,
+        fecha: new Date()
+      };
 
-    const textToPrint = `\nTurno:${turno.codigo} \nIdentificacion: ${turno.identificacion} \nOpcion: ${turno.opcion} \nFecha: ${turno.fecha}`;
+      const textToPrint = `\nTurno:${turno.codigo} \nIdentificación: ${turno.identificacion} \nOpción: ${turno.opcion} \nFecha: ${turno.fecha}`;
 
-    printText(textToPrint)
-      .then(() => console.log("Texto enviado a imprimir"))
-      .catch(error => console.error("Error al imprimir:", error));
+      try {
+        await printText(textToPrint);
+        console.log("Texto enviado a imprimir");
+      } catch (error) {
+        console.error("Error al imprimir:", error);
+      }
+    });
+
+    res.status(201).json(nuevoTurno);
 
   } catch (error) {
     console.error('Error al guardar turno:', error);
@@ -188,7 +271,6 @@ app.post('/api/turnos', async (req, res) => {
 // Ruta para actualizar el campo 'atendido'
 app.put('/api/turnos/:id', async (req, res) => {
   try {
-
     const turno = await Turno.findByIdAndUpdate(
       req.params.id,
       { atendido: true },
@@ -198,27 +280,26 @@ app.put('/api/turnos/:id', async (req, res) => {
       return res.status(404).send('Turno not found');
     }
 
-    // Emitir evento para notificar a los clientes
     io.emit('turnoAtendido', turno);
-    const { codigo, identificacion } = req.body;
-    const textToPrint = `Turno:${codigo}, Identificacion: ${identificacion}`;
+
+    const { codigo } = req.body;
+    const textToPrint = `Turno:${codigo}`;
     convertTextToSpeech(textToPrint, (err, audioFile) => {
       if (err) {
         console.error('Error en la conversión de texto a voz:', err);
       } else {
         console.log('Archivo de audio generado:', audioFile);
-        player.play(audioFile, (err) => {
-          if (err) console.error('Error playing sound:', err);
-        });
+        // Empujar la tarea a la cola
+        enqueueAudioFile(audioFile);
       }
     });
 
     res.send(turno);
-
   } catch (error) {
     res.status(500).send('Error updating turno: ' + error.message);
   }
 });
+
 
 app.use('/api', turnoRoutes);
 app.use('/api/opciones', opcionesRouter);

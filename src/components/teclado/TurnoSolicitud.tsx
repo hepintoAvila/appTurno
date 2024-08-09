@@ -15,9 +15,7 @@ const TurnoSolicitud: React.FC = () => {
         {selectedOpcion ? <i className="ri-checkbox-circle-line"><span>{selectedOpcion}</span></i> : <i className="ri-close-circle-line"><span>Motivo de la Solicitud para el Turno: </span></i>}
       </div>
       <NumericKeypad onSubmit={handleAtenderTurno} />
-      <div className={selectedOpcion ? 'turno-solicitud-opciones turno-tablero-enable' : 'turno-solicitud-opciones turno-tablero-disable'}>
-        {selectedOpcion ? <i className="ri-checkbox-circle-line"><span>   POR FAVOR, DIGITE SU NUMERO DE IDENTIFICACIÓN</span></i> : ''}
-      </div>
+
     </div>
     </Col>
   </Row>

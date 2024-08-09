@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
 }
+.turno-grid-container-atendidos {
+  display: flex;
+  flex-direction: column;
+  width: 59em;
+}
 
 .turno-grid-row {
   display: flex;
@@ -34,27 +39,20 @@
   align-items: center;
   padding: 5px;
   border: 1px solid #000;
-  width: 100%;
-  font-size: 20px;
+  width: max-content;
+  font-size: 43px;
 }
 .turno-tablero-item-estudiante {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 5px;
+  max-height: max-content;
+  padding: 6px 3em 0em;
   border: 1px solid #000;
-  width: 177%;
+  width: 158%;
   font-size: 20px;
 }
-.turno-tablero-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px;
-  border: 1px solid #000;
-  width: 98%;
-  font-size: 20px;
-}
+
 
 .turno-tablero-item.empty-slot {
   visibility: hidden;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { TurnoSolicitud } from '@/components/teclado';
 import { useTurnoContext } from '@/common';
-import TurnoTableroUsuario from '@/components/teclado/TurnoTableroUsuario';
+import TurnoPantalla from '@/components/teclado/TurnoPantalla';
 import TurnoTableroVentanilla from '@/components/teclado/TurnoTableroVentanilla';
 
 interface User {
@@ -26,7 +26,7 @@ interface Turno {
   fecha: string;
 }
 
- 
+
 interface TurnoDashbProps {
   usuarios: User[];
 }
@@ -43,31 +43,23 @@ const TurnosDashboard: React.FC<TurnoDashbProps> = ({ usuarios }) => {
       setTurnos(turnos)
     }
   }, []); // [] como dependencia para ejecutar solo una vez al montar el componente
-
+  console.log('turnos',turnos)
   return (
     <>
       {user?.role === 'Teclado' && (
         <Row>
-          <Col xl={6} lg={{ span: 6, order: 1 }}>
+          <Col xl={12} lg={{ span: 6, order: 1 }}>
             <TurnoSolicitud />
-          </Col>
-          <Col xl={6} lg={{ span: 6, order: 1 }}>
-            <TurnoTableroUsuario turnos={turnos}/>
           </Col>
         </Row>
       )}
 
       {user?.role === 'Pantalla' && (
         <Row>
-          <Col xl={3} lg={{ span: 6, order: 1 }}>
-            <TurnoTableroUsuario turnos={turnos} />
+          <Col xl={12} lg={{ span: 12, order: 1 }}>
+          <TurnoPantalla turnos={turnos}/>
           </Col>
-          <Col xl={6} lg={{ span: 6, order: 1 }}>
-            {/* Contenido de la pantalla */}
-          </Col>
-          <Col xl={3} lg={{ span: 6, order: 3 }}>
-            {/* Otro contenido */}
-          </Col>
+
         </Row>
       )}
 
